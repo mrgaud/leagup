@@ -1,0 +1,24 @@
+{
+  "name": "leagup",
+  "version": "1.0.0",
+  "description": "site for gamers to find people of their skill level",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrgaud/leagup.git"
+  },
+  "author": "Michael Gaudet",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrgaud/leagup/issues"
+  },
+  "homepage": "https://github.com/mrgaud/leagup#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "gulp": "^3.9.1"
+  }
+}
