@@ -11,11 +11,7 @@ const config = {
 
 // NOTE: this callback function runs when passport.authenticate('local') is called
 passport.use(new LocalStrategy(config, (email, password, done) => {
-    db.find({email:email},function(er, rs){
-        console.log(er, rs);
-    })
-  db.clients.find({email:email}, (err, users) => {
-      console.log(users);
+  db.findUserByEmail([email], (err, users) => {
     const user = users[0]
     if (err) { return done(err) }
     if (!user) { return done(null, false) }

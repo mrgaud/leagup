@@ -1,4 +1,4 @@
 SELECT *
-FROM users
+FROM clients
 WHERE email = $1
 ;

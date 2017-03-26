@@ -13,9 +13,11 @@ app.use(bodyParser.json())
 
 app.use(passport.initialize());
 app.use(passport.session())
+app.use(express.static('./public'))
 
-app.use('/user', userRoutes);
+app.use('/main', userRoutes);
 app.use('/auth', mainRoutes);
+
 
 
 app.listen(3000, ()=>console.log(`listening on port: 3000`))
