@@ -1,0 +1,45 @@
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy
+const bcrypt = require('bcryptjs')
+
+const db = require('./db')
+
+const config = {
+  usernameField: 'email',
+  passwordField: 'password'
+}
+
+// NOTE: this callback function runs when passport.authenticate('local') is called
+passport.use(new LocalStrategy(config, (email, password, done) => {
+    db.find({email:email},function(er, rs){
+        console.log(er, rs);
+    })
+  db.clients.find({email:email}, (err, users) => {
+      console.log(users);
+    const user = users[0]
+    if (err) { return done(err) }
+    if (!user) { return done(null, false) }
+    if (!bcrypt.compareSync(password, user.password)) {
+      return done(null, false)
+    }
+    done(null, user)
+  })
+}))
+
+// NOTE:
+//   this is passed the value that serializeUser saved our session
+//   whatever value we give to done() here will end up on req.user
+passport.deserializeUser(function(id, done) {
+  db.findUserById([id], (err, users) => {
+    done(err, users[0])
+  })
+})
+
+// NOTE:
+//   this is passed the value from deserializeUser (req.user)
+//   whatever value we give to done() here will be saved on our session
+passport.serializeUser(function(user, done) {
+  done(null, user.id)
+})
+
+module.exports = passport
