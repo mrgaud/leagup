@@ -1,4 +1,5 @@
 app.controller('mainCtrl', function($scope, mainSrvc,$location) {
+
     $scope.login = function(email, password) {
         let obj = {
             email: email,
@@ -11,11 +12,13 @@ app.controller('mainCtrl', function($scope, mainSrvc,$location) {
     }
 
     mainSrvc.getUser().then((res)=>{
-        if(res.data){
+        if(res.data.username){
+            console.log('here too');
             $scope.user = res.data
         }
         else{
+            console.log('here');
             $location.path('login_signup')
         }
-    })
+    },(err)=>{err?$location.path('login_signup'):console.log('no err')})
 })

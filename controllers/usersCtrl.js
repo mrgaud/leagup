@@ -8,7 +8,7 @@ function hash(given) {
 
 module.exports = {
     index: function(req, res) {
-        req.body.allUsers = db.getAllUsers(function(err, users){
+        req.body.allUsers = db.getAllUsers(function(err, users) {
             res.status(200).send(users)
         })
     },
@@ -27,5 +27,9 @@ module.exports = {
             delete data.password
             res.status(200).json(data);
         });
+    },
+    getUser: function(req, res) {
+        delete req.user.password
+        res.send(req.user)
     }
 }

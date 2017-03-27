@@ -3,8 +3,8 @@ const usersCtrl = require('../controllers/usersCtrl');
 
 const router = express.Router();
 
-// router.get('/', usersCtrl.index);
-router.post('/backend/create', usersCtrl.create)
-// router.login()
+router.post('/create', usersCtrl.create)
+
+router.get('/currentUser',usersCtrl.getUser)
 
 module.exports=router

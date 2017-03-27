@@ -12,7 +12,6 @@ const config = {
 // NOTE: this callback function runs when passport.authenticate('local') is called
 passport.use(new LocalStrategy(config, (email, password, done) => {
   db.findUserByEmail([email], (err, users) => {
-      console.log('hello world');
     const user = users[0]
     if (err) { return done(err) }
     if (!user) { return done(null, false) }
@@ -28,7 +27,6 @@ passport.use(new LocalStrategy(config, (email, password, done) => {
 //   whatever value we give to done() here will end up on req.user
 passport.deserializeUser(function(id, done) {
   db.findUserById([id], (err, users) => {
-    //   console.log(users[0])
     done(err, users[0])
   })
 })
