@@ -3,7 +3,7 @@ app.service('mainSrvc', function($http) {
         return $http.post('/login', credentials)
     }
     this.createUser = function(obj){
-        $http.post('/create',obj)
+        return $http.post('/user/create', obj)
     }
     this.getUser = function(){
         return $http.get('/user/currentUser')

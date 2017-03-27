@@ -1,3 +1,3 @@
-app.component('navComponent',{
-    templateUrl:'/js/components/navComponent/navComponent.js'
+app.component('navComp',{
+    templateUrl:'js/components/navComponent/navComponent.html'
 })
