@@ -11,7 +11,17 @@ app.controller('mainCtrl', function($scope, mainSrvc, $location) {
             $scope.user = res.data
             console.log(res.data);
             $location.path('home')
+        }, (err) => {
+            $scope.loginErr = "Email & Password don't match"
+            $('#loginEmail').val('')
+            $('#loginEmailDiv').addClass('has-error')
+            $('#loginPassDiv').addClass('has-error')
+            $('#loginPass').val('')
         })
+    }
+    $scope.logout = function(){
+        $scope.user = undefined
+        mainSrvc.logout()
     }
     $scope.createUser = function(username, email, password, passCheck) {
         if (password === passCheck) {
@@ -27,6 +37,12 @@ app.controller('mainCtrl', function($scope, mainSrvc, $location) {
                     $scope.err = 'Username or email address already in use'
                 })
             }
+        } else {
+            $('#createPassword').val('')
+            $('#pwdiv').addClass('has-error')
+            $('#createPasswordCheck').val('')
+            $('#pwcdiv').addClass('has-error')
+            $scope.err = "Passwords do not match"
         }
     }
     mainSrvc.getUser().then((res) => {

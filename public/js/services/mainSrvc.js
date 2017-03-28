@@ -8,6 +8,9 @@ app.service('mainSrvc', function($http) {
     this.getUser = function(){
         return $http.get('/user/currentUser')
     }
+    this.logout = function(){
+        $http.get('/user/logout')
+    }
 
 
 })

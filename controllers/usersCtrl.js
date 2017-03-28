@@ -30,6 +30,7 @@ module.exports = {
     },
     getUser: function(req, res) {
         delete req.user.password
+        console.log('naughty naughty');
         res.send(req.user)
     }
 }

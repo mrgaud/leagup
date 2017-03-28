@@ -3,7 +3,7 @@
     <div class="row well">
         <div>
             <h2 class="">What games do you play?</h2>
-            <div ng-repeat='game in games' class="col-sm-2">
+            <div ng-repeat='game in games track by $index' class="col-sm-2">
                 <input type="checkbox" id='{{game.name}}' value="">
                 <label for="{{game.name}}">
                     <div>
