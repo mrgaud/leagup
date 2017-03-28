@@ -27,6 +27,9 @@ passport.use(new LocalStrategy(config, (email, password, done) => {
 //   whatever value we give to done() here will end up on req.user
 passport.deserializeUser(function(id, done) {
   db.findUserById([id], (err, users) => {
+      users[0].games = JSON.parse(users[0].games)
+      users[0].teams = JSON.parse(users[0].teams)
+
     done(err, users[0])
   })
 })

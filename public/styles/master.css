@@ -3,4 +3,26 @@
     border: 2px solid lightgrey;
     height: 200px;
     width: 200px;
+    background-position: center center;
+    background-size: cover;
+}
+
+.gamesIcon{
+    width: 100%;
+}
+.navbarIcon{
+    width: 50px;
+    margin-top: 10%;
+}
+.center-text{
+    text-align: center;
+}
+input[type=checkbox]{
+    display: none;
+}
+label{
+    opacity: .5;
+}
+:checked + label{
+    opacity: 1;
 }

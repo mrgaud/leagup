@@ -1,3 +1,6 @@
 app.component('navComp',{
-    templateUrl:'js/components/navComponent/navComponent.html'
+    templateUrl:'js/components/navComponent/navComponent.html',
+    bindings:{
+        user:'='
+    }
 })
