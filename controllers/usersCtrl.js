@@ -32,5 +32,34 @@ module.exports = {
         delete req.user.password
         console.log('naughty naughty');
         res.send(req.user)
+    },
+    getUserMessages: function(req,res){
+        db.getUserMessages([req.user.id],function(err, messages){
+            res.status(200).send(messages)
+        })
+    },
+    createUserMessage: function(req,res){
+        db.createMessage([req.body.user_id,req.body.poster_id,req.body.poster_username,req.body.date,req.body.message,req.body.poster_image],function(err,message){
+            console.log(err,message);
+            res.status(200).json(message)
+        })
+    },
+    getProfile: function(req,res){
+        db.getProfileByUsername([req.params.username],function(err,profile){
+            profile = profile[0]
+            db.getUserMessages([profile.id],function(err,message){
+                profile.messages = message;
+                db.getUserLikes([profile.id],function(err,likes){
+                    profile.likes = likes;
+                    db.getUserDislikes([profile.id],function(err,dislikes){
+                        profile.dislikes = dislikes
+                        // db.getUserProfileInfo([profile.id])
+                        // profile.games = JSON.parse(profile.game)
+                        console.log(profile);
+                        res.send(profile)
+                    })
+                })
+            })
+        })
     }
 }

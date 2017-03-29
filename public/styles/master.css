@@ -6,16 +6,33 @@
     background-position: center center;
     background-size: cover;
 }
-
+.messageCite{
+    font-size: .8em;
+}
+.messagesName{
+    font-size: 1.3em;
+    color: white;
+    text-decoration: none;
+}
 .gamesIcon{
     width: 100%;
 }
 .navbarIcon{
     width: 50px;
+    max-height: 50px;
     margin-top: 10%;
 }
 .center-text{
     text-align: center;
+}
+.messages{
+    padding: .5em;
+    background: white;
+}
+.messagesIcon{
+    max-height: 100px;
+    max-width: 100px;
+
 }
 input[type=checkbox]{
     display: none;

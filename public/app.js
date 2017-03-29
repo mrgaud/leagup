@@ -18,4 +18,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/login_signup',
             templateUrl: '/views/login_signup.html'
         })
+        .state('profile', {
+            url: '/user/:username',
+            templateUrl: '/views/users_profile.html',
+            controller: function($scope, $location) {
+                let user = $location.url().replace('/user/', '')
+                console.log(user);
+                $(window).scrollTop(0)
+                $scope.getProfile(user)
+            }
+        })
 })

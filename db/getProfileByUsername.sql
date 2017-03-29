@@ -1,6 +1,4 @@
-SELECT *
-FROM clients
+select * from clients
 full outer join clients_info
 on clients.id = clients_info.user_id
-WHERE id = $1
-;
+where username = $1 or email = $1
