@@ -25,7 +25,10 @@ module.exports = {
             }
             const data = users[0];
             delete data.password
-            res.status(200).json(data);
+            db.createProfile([data.id],function(err,profile){
+                console.log(err,profile);
+                res.status(200).json(data);
+            })
         });
     },
     getUser: function(req, res) {
@@ -55,11 +58,14 @@ module.exports = {
                         profile.dislikes = dislikes
                         // db.getUserProfileInfo([profile.id])
                         // profile.games = JSON.parse(profile.game)
-                        console.log(profile);
+                        // console.log(profile);
                         res.send(profile)
                     })
                 })
             })
         })
+    },
+    editProfile:function(req,res){
+        console.log(req.user.id);
     }
 }

@@ -10,6 +10,8 @@ router.get('/currentUser',usersCtrl.getUser)
 
 router.get('/getProfile/:username', usersCtrl.getProfile)
 
+router.patch('/edit_profile', usersCtrl.editProfile)
+
 router.post('/userMessages', usersCtrl.createUserMessage)
 
 router.get('/userMessages', usersCtrl.getUserMessages)

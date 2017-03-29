@@ -7,8 +7,10 @@ app.service('profileSrvc',function($http){
         ,{name:'Halo', image:'/assets/halo.png'}
         ,{name:'Overwatch', image:'/assets/overwatchlogo.png'}
     ]
+    this.editProfile = function(obj){
+        $http.patch('/user/edit_profile',obj)
+    }
 
-    
 })
 
 

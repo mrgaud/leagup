@@ -33,6 +33,7 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
     }
     //create user
     $scope.createUser = function(username, email, password, passCheck) {
+        $('.createUserMessage').slideDown(500)
         if (password === passCheck) {
             let obj = {
                 username: username,
@@ -40,6 +41,10 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
                 password: password
             }
             if (username && email && password) {
+                $('#createPassword').val('')
+                $('#createPasswordCheck').val('')
+                $('#createdUsername').val('')
+                $()
                 mainSrvc.createUser(obj).then(function(res) {
                     // $location.path('home')
                 }, function(err) {
@@ -57,11 +62,10 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
     //creates user message
     // FIXME: user_id needs to be fixxed
     $scope.createUserMessage = function(message) {
-        // console.log($location.url());
         let obj = {
             message: message,
             // FIXME: this little fucker
-            user_id: $location.url() === '/' ? $scope.user.id : '',
+            user_id: $scope.profile.id,
             poster_id: $scope.user.id,
             poster_username: $scope.user.username,
             date: Date.now(),
@@ -95,9 +99,8 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
         mainSrvc.getProfile(user).then(res => {
 
             $scope.profile = res.data
-            // $scope.profile.readableDate = moment($scope.profile.date).format('MMM Do YYYY, h:mm:ss a')
-            $scope.profile.messages.map(x=>x.readableDate = moment(x.date).format('MMM Do YYYY, hh:mm:ss a'))
-            $scope.profile.messages.sort((x,y)=>x.date<y.date)
+            $scope.profile.messages.map(x => x.readableDate = moment(x.date).format('MMM Do YYYY, hh:mm:ss a'))
+            $scope.profile.messages.sort((x, y) => x.date < y.date)
             $scope.profile.teams = JSON.parse($scope.profile.teams)
             $scope.profile.games = JSON.parse($scope.profile.games)
         }, err => console.log(err))

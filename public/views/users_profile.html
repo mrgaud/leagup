@@ -7,7 +7,7 @@
         <div class="col-md-8 col-xs-7">
             <h1 class="">{{profile.username}}</h1>
             <p ng-show='profile.description'>{{profile.description}}</p>
-            <a ui-sref="edit_profile" class="btn btn-lg btn-primary" ng-show='!user.games'>Finish out your profile</a>
+            <a ui-sref="edit_profile" class="btn btn-lg btn-primary" ng-show='profile.id === user.id && !user.games'>Finish out your profile</a>
         </div>
     </div>
     <div class="row">
