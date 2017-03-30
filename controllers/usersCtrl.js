@@ -55,10 +55,8 @@ module.exports = {
                 db.getUserLikes([profile.id],function(err,likes){
                     profile.likes = likes;
                     db.getUserDislikes([profile.id],function(err,dislikes){
+                        console.log(dislikes);
                         profile.dislikes = dislikes
-                        // db.getUserProfileInfo([profile.id])
-                        // profile.games = JSON.parse(profile.game)
-                        // console.log(profile);
                         res.send(profile)
                     })
                 })
@@ -66,6 +64,9 @@ module.exports = {
         })
     },
     editProfile:function(req,res){
-        console.log(req.user.id);
+        req.body.games = JSON.stringify(req.body.games);
+        db.editProfile([req.user.id,req.body.description, req.body.games],function(err,profile){
+            console.log(err,profile);
+        })
     }
 }

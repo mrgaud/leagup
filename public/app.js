@@ -1,5 +1,5 @@
 const app = angular.module('leagup', ['ui.router'])
-
+// import {fish} from 'js/scripts.js'
 app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/')
 
@@ -21,11 +21,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('profile', {
             url: '/user/:username',
             templateUrl: '/views/users_profile.html',
-            controller: function($scope, $location) {
-                let user = $location.url().replace('/user/', '')
-                console.log(user);
-                $(window).scrollTop(0)
-                $scope.getProfile(user)
-            }
+            controller: 'profileCtrl'
         })
 })

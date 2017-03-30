@@ -8,15 +8,12 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
         mainSrvc.login(obj).then(function(res) {
             res.data.games = JSON.parse(res.data.games)
             res.data.teams = JSON.parse(res.data.teams)
+            res.data.gameNames = res.data.games.map(x => {
+                return x = x.name
+            })
             $scope.user = res.data
             // FIXME:
-            mainSrvc.getUserMessages().then(res => {
 
-                $scope.userMessages = res.data
-                $scope.userMessages.map(x => {
-                    x.readableDate = moment(x.date).format("MMM Do YYYY, h:mm:ss a")
-                })
-            })
             $location.path(`/user/${$scope.user.username}`)
         }, (err) => {
             $scope.loginErr = "Email & Password don't match"
@@ -86,11 +83,9 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
             })
         } else {
             console.log('here');
-            // $location.path('login_signup')
         }
     }, (err) => {
         err ? '' : console.log('no err')
-        // err ? $location.path('login_signup') : console.log('no err')
     })
     //grabs profile based on page you are on and displays it
     $scope.getProfile = function() {
@@ -105,6 +100,4 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
             $scope.profile.games = JSON.parse($scope.profile.games)
         }, err => console.log(err))
     }
-    // $scope.getProfile()
-
 })

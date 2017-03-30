@@ -1,3 +1,4 @@
+<div id="prof" style="display:none">{{profile}}</div>
 <div class="container">
     <div class="row well">
         <div class="col-md-3 col-xs-5">
@@ -37,8 +38,8 @@
             </div>
         </div>
         <!-- FIXME:  -->
-        <div class="well col-sm-8  col-xs-12 col-sm-offset-1">
-            <canvas id="myChart" width="100%" max-height="200px"></canvas>
+        <div class="well col-sm-8 col-xs-12 col-sm-offset-1">
+            <canvas id="myChart" ng-load='runChart()' style="max-width:100%"></canvas>
         </div>
     </div>
 
