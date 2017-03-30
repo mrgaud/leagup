@@ -7,7 +7,6 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
         }
         mainSrvc.login(obj).then(function(res) {
             res.data.games = JSON.parse(res.data.games)
-            res.data.teams = JSON.parse(res.data.teams)
             res.data.gameNames = res.data.games.map(x => {
                 return x = x.name
             })
@@ -92,11 +91,9 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
         let user = $location.url().replace('/user/', '')
 
         mainSrvc.getProfile(user).then(res => {
-
             $scope.profile = res.data
             $scope.profile.messages.map(x => x.readableDate = moment(x.date).format('MMM Do YYYY, hh:mm:ss a'))
             $scope.profile.messages.sort((x, y) => x.date < y.date)
-            $scope.profile.teams = JSON.parse($scope.profile.teams)
             $scope.profile.games = JSON.parse($scope.profile.games)
         }, err => console.log(err))
     }

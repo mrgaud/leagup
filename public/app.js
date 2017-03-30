@@ -1,14 +1,9 @@
 const app = angular.module('leagup', ['ui.router'])
 // import {fish} from 'js/scripts.js'
 app.config(function($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/')
+    $urlRouterProvider.otherwise('/login_signup')
 
     $stateProvider
-        .state('home', {
-            url: '/',
-            templateUrl: 'views/home.html',
-            controller: 'profileCtrl'
-        })
         .state('edit_profile', {
             url: '/edit_profile',
             templateUrl: '/views/edit_profile.html',

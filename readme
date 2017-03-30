@@ -1,0 +1,7 @@
+Team table:
+    Team_id: int primary key
+    admin_id: int
+    team_name: text
+    team_photo:text
+    members:text
+    privacy:text

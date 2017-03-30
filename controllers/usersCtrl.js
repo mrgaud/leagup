@@ -55,9 +55,13 @@ module.exports = {
                 db.getUserLikes([profile.id],function(err,likes){
                     profile.likes = likes;
                     db.getUserDislikes([profile.id],function(err,dislikes){
-                        console.log(dislikes);
                         profile.dislikes = dislikes
-                        res.send(profile)
+                        db.getUserTeams([profile.id],function(err,teams){
+                            profile.teams = teams
+                            console.log(teams);
+                            res.send(profile)
+
+                        })
                     })
                 })
             })
