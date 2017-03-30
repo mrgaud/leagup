@@ -69,6 +69,7 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
         }
         mainSrvc.createUserMessage(obj)
         console.log(obj);
+        location.reload()
     }
     //gets user data if logged in
     mainSrvc.getUser().then((res) => {

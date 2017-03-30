@@ -18,4 +18,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: '/views/users_profile.html',
             controller: 'profileCtrl'
         })
+        .state('team',{
+            url:'/team/:id',
+            templateUrl:'/views/team_page.html',
+            controller:'teamCtrl'
+        })
+        .state('create_team',{
+            url:'/create_team',
+            templateUrl:'/views/create_team.html'
+        })
 })

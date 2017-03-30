@@ -1,15 +1,22 @@
 <div id="prof" style="display:none">{{profile}}</div>
 <div class="container">
     <div class="row well">
-        <div class="col-md-3 col-xs-5">
+        <div class="col-md-3 col-sm-6">
             <img ng-hide='profile.imageUrl' class='' id='userImage' src="/default-user-image.png" alt="">
             <img ng-show='profile.imageUrl' id='userImage' style='background-image:url({{profile.imageUrl}})' alt="">
         </div>
-        <div class="col-md-8 col-xs-7">
+        <div class="col-md-5 col-sm-6 col-xs-12">
             <h1 class="">{{profile.username}}</h1>
             <p ng-show='profile.description'>{{profile.description}}</p>
             <a ui-sref="edit_profile" class="btn btn-lg btn-primary" ng-show='profile.id === user.id && !user.games'>Finish out your profile</a>
         </div>
+        <div class="col-md-4 col-xs-12">
+            <h2 ng-hide='!profile.teams.length'>Teams</h2>
+            <div ng-repeat='team in profile.teams'>
+                <h4><a ui-sref='team({id:team.team_id})'>{{team.team_name}}</a><h4>
+            </div>
+        </div>
+
     </div>
     <div class="row">
         <div class="well col-sm-3 col-xs-10 col-xs-offset-1 col-sm-offset-0">
@@ -48,13 +55,13 @@
         <div class=" col-md-12">
             <h3>Comments</h3>
             <form class="form-group">
-                <div class="row">
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-block btn-primary" ng-click='createUserMessage(comment)'>Post</button>
-                    </div>
+                <div class="row" ng-hide='!user'>
                     <div class="col-md-10">
                         <input class="form-control" type="text" ng-model='comment'>
                         <label for="comments"></label>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary" ng-click='createUserMessage(comment)'>Post</button>
+                        </div>
                     </div>
                 </div>
                 <br>
