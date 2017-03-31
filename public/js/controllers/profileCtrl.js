@@ -4,7 +4,6 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
     $scope.games = profileSrvc.games;
 
     if ($location.url() === '/edit_profile' && !$scope.user) {
-        console.log('working');
         $location.path('login_signup')
     }
 
@@ -38,87 +37,15 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
     $scope.getProfile(user)
 
     if ($state.current.name === 'profile') {
-        $(document).ready(function() {
-            var runChart = function() {
-                let timer = setInterval(function() {
-                    console.log('hello');
-                    let profile = $('#prof').text()
-                    if (profile.length) {
-                        clearInterval(timer)
-                        profile = JSON.parse(profile);
-                        console.log(profile);
-
-                        date = profile.likes.map(x => {
-                            x.x = moment(x.date).format("MM DD YYYY")
-                            return {
-                                x: x.date,
-                                z: moment(x.date).format("MM DD YYYY"),
-                                y: 0
-                            }
-                        })
-                        date = date.map(f => {
-                            for (let i = 0; i < date.length; i++) {
-                                if (date[i].z === f.z) {
-                                    f.y += 1
-                                }
-                            }
-                            return f 
-                        })
-
-                        function chart() {
-                            var ctx = $('#myChart')
-                            var scatterChart = new Chart(ctx, {
-                                type: 'line',
-                                data: {
-                                    label: 'days',
-                                    datasets: [{
-                                            label: 'likes',
-                                            backgroundColor: "rgba(75,192,192,0.0)",
-                                            borderColor: "rgba(75,192,192,1)",
-                                            data: date,
-                                            tension: 1
-                                        },
-                                        {
-                                            label: 'dislikes',
-                                            // data: ,
-                                            backgroundColor: 'rgba(192,100,100,0.0)',
-                                            borderColor: 'rgba(192,100,100,1)'
-                                        }
-                                    ]
-                                },
-                                options: {
-                                    scales: {
-                                        yAxes: [{
-                                            type: 'linear',
-                                            display: true,
-                                            gridLines: {
-                                                display: false
-                                            }
-                                            // position:'bottom',
-                                        }],
-                                        xAxes: [{
-                                            type: 'time',
-                                            display: true,
-                                            time: {
-                                                unit: "day",
-                                                round: 'day'
-                                            },
-
-                                            gridLines: {
-                                                display: false
-                                            }
-                                        }]
-
-                                    }
-                                }
-                            });
-                        }
-                        chart()
-                    }
-                }, 300)
-            }
-            runChart()
-        })
+        profileSrvc.chart()
     }
 
+    $scope.addLike = function(prof,user){
+        let obj = {
+            user_id:prof,
+            poster_id:user,
+            date:Date.now()
+        }
+        profileSrvc.addLike(obj)
+    }
 })

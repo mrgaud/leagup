@@ -38,24 +38,20 @@
         <div class="well col-sm-3 col-xs-10 col-xs-offset-1 col-sm-offset-0">
             <div class="row">
                 <!-- NOTE: set these up -->
-                <a class='btn btn-success btn-block col-sm-6'>like</a>
+                <a class='btn btn-success btn-block col-sm-6' ng-click='addLike(profile.id,user.id)'>like</a>
                 <a class="btn btn-danger btn-block col-sm-6">dislike</a>
             </div>
             <table class='table table-striped'>
                 <tr>
-                    <th>name</th>
-                    <th>stats</th>
-                </tr>
-                <tr>
-                    <td>likes:</td>
+                    <th>likes:</td>
                     <td>{{profile.likes?profile.likes.length:0}}</td>
                 </tr>
                 <tr>
-                    <td>dislikes:</td>
+                    <th>dislikes:</td>
                     <td>{{profile.dislikes?profile.dislikes.length:0}}</td>
                 </tr>
                 <tr>
-                    <td>teams:</td>
+                    <th>teams:</td>
                     <td>{{profile.teams?profile.teams.length:0}}</td>
                 </tr>
             </table>

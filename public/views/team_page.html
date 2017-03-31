@@ -1,0 +1,59 @@
+<div class="container">
+    <!-- NOTE: header and join/leave button -->
+    <div class="row ">
+        <div class="col-md-9 well well-sm">
+            <div class="row">
+                <div class="col-md-4">
+                    <img ng-src="{{team.team_photo}}" alt="" class="img-responsive">
+                </div>
+                <div class="col-md-8">
+                    <h1>
+                        {{team.team_name}}
+                    </h1>
+                    <h4>{{team.team_description}}</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 clearfix" ng-hide='!user'>
+            <a class="btn btn-primary btn-block" ng-hide='user.teamNames.includes(team.team_name) || team.privacy !== 0'>join</a>
+            <a class="btn btn-danger btn-block" ng-show='user.teamNames.includes(team.team_name)'>leave</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 well">
+            <table class='table table-striped'>
+                <tr>
+                    <th>likes</td>
+                    <td>{{team.likes.length || 0}}</td>
+                </tr>
+                <tr>
+                    <th>dislikes</td>
+                    <td>{{team.dislikes.length || 0}}</td>
+                </tr>
+                <tr>
+                    <th>members</td>
+                    <td>{{team.members.length || 0}}</td>
+                </tr>
+
+            </table>
+        </div>
+        <div class="col-md-6">
+            <canvas id="teamCanvas" class='img-responsive'></canvas>
+        </div>
+        <div class="col-md-3 well clearfix">
+            <h3>Members</h3>
+            <div ng-repeat='member in team.members'>
+                <a ui-sref="profile({username:member.username})"><h4>{{member.username}}<span ng-show='member.user_id===team.team_admin'> (admin)</span></h4></a>
+            </div>
+        </div>
+    </div>
+</div>
+{{team}}
+<!-- <div class="col-md-3 well well-sm">
+    <h3>Members</h3>
+    <div ng-repeat='member in team.members'>
+        <a ui-sref="profile({username:member.username})"><h4>{{member.username}}<span ng-show='member.user_id===team.team_admin'> (admin)</span></h4></a>
+    </div>
+</div> -->

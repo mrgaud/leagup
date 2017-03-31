@@ -44,8 +44,7 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
                 $('#createPasswordCheck').val('')
                 $('#createdUsername').val('')
                 $()
-                mainSrvc.createUser(obj).then(function(res) {
-                }, function(err) {
+                mainSrvc.createUser(obj).then(function(res) {}, function(err) {
                     $scope.err = 'Username or email address already in use'
                 })
             }
@@ -58,7 +57,6 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
         }
     }
     //creates user message
-    // FIXME: user_id needs to be fixxed
     $scope.createUserMessage = function(message) {
         let obj = {
             message: message,
@@ -70,21 +68,14 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
             poster_image: $scope.user.imageUrl
         }
         mainSrvc.createUserMessage(obj)
-        console.log(obj);
         location.reload()
     }
     //gets user data if logged in
     mainSrvc.getUser().then((res) => {
         if (res.data.username) {
+            console.log(res.data);
+            res.data.gameNames = res.data.games.map(x => x.name)
             $scope.user = res.data
-            mainSrvc.getUserMessages().then(res => {
-                $scope.userMessages = res.data
-                $scope.userMessages.map(x => {
-                    x.readableDate = moment(x.date).format("MMM Do YYYY, h:mm:ss a")
-                })
-            })
-        } else {
-            console.log('here');
         }
     }, (err) => {
         err ? '' : console.log('no err')
@@ -92,7 +83,6 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
     //grabs profile based on page you are on and displays it
     $scope.getProfile = function() {
         let user = $location.url().replace('/user/', '')
-
         mainSrvc.getProfile(user).then(res => {
             $scope.profile = res.data
             $scope.profile.messages.map(x => x.readableDate = moment(x.date).format('MMM Do YYYY, hh:mm:ss a'))

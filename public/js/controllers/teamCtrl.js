@@ -11,7 +11,16 @@ app.controller('teamCtrl', function($scope,$state, teamSrvc, profileSrvc, $locat
         label: 'anybody can join',
         value: 0
     }]
-    $scope.privacy = $scope.options[2]
+
+    $scope.priv = $scope.options[2]
+
+    if($state.current.name==="team"){
+        teamSrvc.getTeam().then(res=>{
+            $scope.team = res.data
+        },err=>{
+            console.log(err);
+        })
+    }
 
     $scope.upload = function(id) {
         profileSrvc.upload(id)

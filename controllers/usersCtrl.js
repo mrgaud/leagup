@@ -1,16 +1,18 @@
 const db = require('../db');
 const bcrypt = require('bcryptjs');
-
+const userSrvc = require('../serivce/userSrvc.js');
 function hash(given) {
     const salt = bcrypt.genSaltSync(10);
     return bcrypt.hashSync(given, salt)
 }
-
+// function(req, res) {
+//     req.body.allUsers = db.getAllUsers(function(err, users) {
+//         res.status(200).send(users)
+//     })
+// }
 module.exports = {
-    index: function(req, res) {
-        req.body.allUsers = db.getAllUsers(function(err, users) {
-            res.status(200).send(users)
-        })
+    index: function() {
+        return userSrvc.index()
     },
     create: (req, res, next) => {
         const userInfo = [
@@ -51,7 +53,6 @@ module.exports = {
     },
     getProfile: function(req, res) {
         db.getProfileByUsername([req.params.username], function(err, profile) {
-            console.log(profile);
             profile = profile[0]
             db.getUserMessages([profile.id], function(err, message) {
                 profile.messages = message;
@@ -75,5 +76,9 @@ module.exports = {
         db.editProfile([req.user.id, req.body.description, req.body.games], function(err, profile) {
             console.log(err, profile);
         })
+    },
+    addLike:function(req,res){
+        console.log('hitting me');
+        res.send(userSrvc.addLike(req))
     }
 }

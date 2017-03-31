@@ -18,7 +18,13 @@ passport.use(new LocalStrategy(config, (email, password, done) => {
     if (!bcrypt.compareSync(password, user.password)) {
       return done(null, false)
     }
-    done(null, user)
+    db.getUserTeams([user.id],function(err,teams){
+        user.teams = teams
+        user.teamNames = teams.map(x=>{
+            return x.team_name
+        })
+        done(null, user)
+    })
   })
 }))
 
@@ -28,7 +34,14 @@ passport.use(new LocalStrategy(config, (email, password, done) => {
 passport.deserializeUser(function(id, done) {
   db.findUserById([id], (err, users) => {
       users[0].games = JSON.parse(users[0].games)
-    done(err, users[0])
+      let user = users[0];
+      db.getUserTeams([user.id],function(err,teams){
+          user.teams = teams
+          user.teamNames = teams.map(x=>{
+              return x.team_name
+          })
+          done(err, user)
+      })
   })
 })
 

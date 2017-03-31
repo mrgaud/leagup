@@ -4,6 +4,8 @@ const logout = require('express-passport-logout');
 
 const router = express.Router();
 
+router.post('/addLike', usersCtrl.addLike)
+
 router.post('/create', usersCtrl.create)
 
 router.get('/currentUser',usersCtrl.getUser)
