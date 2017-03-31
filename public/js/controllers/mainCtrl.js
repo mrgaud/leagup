@@ -1,5 +1,6 @@
 app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
     //checks email and pw and logs in user
+
     $scope.login = function(email, password) {
         let obj = {
             email: email,
@@ -7,9 +8,11 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
         }
         mainSrvc.login(obj).then(function(res) {
             res.data.games = JSON.parse(res.data.games)
-            res.data.gameNames = res.data.games.map(x => {
-                return x = x.name
-            })
+            if (res.data.games) {
+                res.data.gameNames = res.data.games.map(x => {
+                    return x = x.name
+                })
+            }
             $scope.user = res.data
             // FIXME:
 
@@ -42,7 +45,6 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
                 $('#createdUsername').val('')
                 $()
                 mainSrvc.createUser(obj).then(function(res) {
-                    // $location.path('home')
                 }, function(err) {
                     $scope.err = 'Username or email address already in use'
                 })

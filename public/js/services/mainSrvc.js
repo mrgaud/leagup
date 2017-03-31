@@ -6,6 +6,7 @@ app.service('mainSrvc', function($http) {
         return $http.get('/user/userMessages')
     }
     this.createUser = function(obj){
+        // return $http.post('checknewuser',obj)
         return $http.post('/user/create', obj)
     }
     this.getUser = function(){

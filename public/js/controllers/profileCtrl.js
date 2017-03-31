@@ -25,7 +25,12 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
             games: checked.length ? checked : $scope.user.games
         }
         profileSrvc.editProfile(obj)
-        $location.path('/user/'+$scope.user.username)
+        $location.path('/user/' + $scope.user.username)
+        location.reload()
+    }
+
+    $scope.upload = function(id) {
+        profileSrvc.upload(id)
     }
 
     let user = $location.url().replace('/user/', '')
@@ -71,6 +76,7 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
                                             backgroundColor: "rgba(75,192,192,0.0)",
                                             borderColor: "rgba(75,192,192,1)",
                                             data: date,
+                                            tension: 1
                                         },
                                         {
                                             label: 'dislikes',
@@ -94,13 +100,10 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
                                             type: 'time',
                                             display: true,
                                             time: {
-                                                // unit:"day",
+                                                unit: "day",
                                                 round: 'day'
                                             },
-                                            scaleLabel: {
-                                                display: true,
-                                                labelString: 'Date'
-                                            },
+
                                             gridLines: {
                                                 display: false
                                             }
@@ -117,7 +120,5 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
             runChart()
         })
     }
-
-
 
 })

@@ -7,5 +7,6 @@ router.post('/login', passport.authenticate('local'), (req, res, next) => {
     delete req.user.password
     res.send(req.user)
 })
+router.post('/checknewuser')
 
 module.exports = router;

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/mrgaud/leagup#readme",
   "dependencies": {
+    "aws-sdk": "^2.34.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.1",
     "cors": "^2.8.1",

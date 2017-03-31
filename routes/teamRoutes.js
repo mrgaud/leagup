@@ -12,7 +12,7 @@ router.post('/create_team', function(req, res) {
         privacy: req.body.privacy,
         team_games: req.body.team_games
     }, function(err, team) {
-
+console.log(err);
         db.linkAdminToTeam([
             team.team_id,
             team.team_admin
