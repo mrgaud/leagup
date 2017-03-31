@@ -4,7 +4,15 @@ app.service('profileSrvc', function($http) {
     this.addLike = function(obj){
         $http.post('/user/addLike',obj)
     }
-
+    this.addDislike = function(obj){
+        $http.post('/user/addDislike',obj)
+    }
+    this.removeLike = function(obj){
+        $http.post('/user/removeLike',obj)
+    }
+    this.removeDislike = function(obj){
+        $http.post('/user/removeDislike',obj)
+    }
     this.editProfile = function(obj) {
         $http.patch('/user/edit_profile', obj)
     }

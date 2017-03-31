@@ -29,7 +29,6 @@ module.exports = {
                     delete x.password
                     return x
                 })
-                console.log(members);
                 team.members = members
                 res.status(200).send(team)
             })

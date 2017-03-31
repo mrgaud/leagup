@@ -1,6 +1,7 @@
 const db = require('../db');
 const bcrypt = require('bcryptjs');
 const userSrvc = require('../serivce/userSrvc.js');
+
 function hash(given) {
     const salt = bcrypt.genSaltSync(10);
     return bcrypt.hashSync(given, salt)
@@ -47,7 +48,7 @@ module.exports = {
     },
     createUserMessage: function(req, res) {
         db.createMessage([req.body.user_id, req.body.poster_id, req.body.poster_username, req.body.date, req.body.message, req.body.poster_image], function(err, message) {
-            console.log(err, message);
+            console.log(err);
             res.status(200).json(message)
         })
     },
@@ -62,7 +63,7 @@ module.exports = {
                         profile.dislikes = dislikes
                         db.getUserTeams([profile.id], function(err, teams) {
                             profile.teams = teams
-                            console.log(teams);
+                            console.log(err);
                             res.send(profile)
 
                         })
@@ -74,11 +75,19 @@ module.exports = {
     editProfile: function(req, res) {
         req.body.games = JSON.stringify(req.body.games);
         db.editProfile([req.user.id, req.body.description, req.body.games], function(err, profile) {
-            console.log(err, profile);
+            console.log(err);
         })
     },
-    addLike:function(req,res){
-        console.log('hitting me');
+    addLike: function(req, res) {
         res.send(userSrvc.addLike(req))
+    },
+    addDislike: function(req, res) {
+        res.send(userSrvc.addDislike(req))
+    },
+    removeLike: function(req, res) {
+        res.send(userSrvc.removeLike(req))
+    },
+    removeDislike: function(req,res){
+        res.send(userSrvc.removeDislike(req))
     }
 }

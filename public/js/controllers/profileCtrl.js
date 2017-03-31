@@ -39,13 +39,29 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
     if ($state.current.name === 'profile') {
         profileSrvc.chart()
     }
-
+    // NOTE: Controlls the likes/dislikes
     $scope.addLike = function(prof,user){
         let obj = {
             user_id:prof,
             poster_id:user,
             date:Date.now()
         }
+        if($scope.profile.dislikesId.includes(user)){
+            profileSrvc.removeDislike(obj)
+        }
         profileSrvc.addLike(obj)
+        location.reload()
+    }
+    $scope.addDislike = function(prof,user){
+        let obj = {
+            user_id:prof,
+            poster_id:user,
+            date:Date.now()
+        }
+        if($scope.profile.likesId.includes(user)){
+            profileSrvc.removeLike(obj)
+        }
+        profileSrvc.addDislike(obj)
+        location.reload()
     }
 })

@@ -6,6 +6,12 @@ const router = express.Router();
 
 router.post('/addLike', usersCtrl.addLike)
 
+router.post('/addDislike', usersCtrl.addDislike)
+
+router.post('/removeLike', usersCtrl.removeLike)
+
+router.post('/removeDislike', usersCtrl.removeDislike)
+
 router.post('/create', usersCtrl.create)
 
 router.get('/currentUser',usersCtrl.getUser)

@@ -88,6 +88,9 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
             $scope.profile.messages.map(x => x.readableDate = moment(x.date).format('MMM Do YYYY, hh:mm:ss a'))
             $scope.profile.messages.sort((x, y) => x.date < y.date)
             $scope.profile.games = JSON.parse($scope.profile.games)
+            $scope.profile.likesId = $scope.profile.likes.map(x=> x.poster_id)
+            $scope.profile.dislikesId = $scope.profile.dislikes.map(x=> x.poster_id)
+            console.log($scope.profile);
         }, err => console.log(err))
     }
 })

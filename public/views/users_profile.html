@@ -14,7 +14,7 @@
         <div class="col-md-4 col-xs-12">
             <h2 ng-hide='!profile.teams.length'>Teams</h2>
             <div ng-repeat='team in profile.teams'>
-                <h4><a ui-sref='team({id:team.team_id})'>{{team.team_name}}</a><h4>
+                <h4><a ui-sref='team({id:team.team_id})'>{{team.team_name}}<span ng-show='profile.id===team.team_admin'> (admin)</span></a><h4>
             </div>
         </div>
 
@@ -27,6 +27,10 @@
             <a class='btn btn-block btn-success'>Team Invite</a>
             <!-- NOTE: Dropdown here -->
         </div>
+        <div class="col-md-4 col-xs-12"ng-show='profile.id!==user.id'>
+            <a class='btn btn-block btn-primary'>Message</a>
+            <!-- NOTE: Dropdown here -->
+        </div>
         <div class="col-md-4 col-xs-12"ng-show='profile.id===user.id'>
             <a class='btn btn-block btn-info' ui-sref='edit_profile'>Edit Profile</a>
         </div>
@@ -36,10 +40,10 @@
     </div>
     <div class="row">
         <div class="well col-sm-3 col-xs-10 col-xs-offset-1 col-sm-offset-0">
-            <div class="row">
-                <!-- NOTE: set these up -->
-                <a class='btn btn-success btn-block col-sm-6' ng-click='addLike(profile.id,user.id)'>like</a>
-                <a class="btn btn-danger btn-block col-sm-6">dislike</a>
+            <div class="row" ng-hide='profile.id===user.id || !user'>
+                <!-- NOTE: set like and dislike up -->
+                <button class='btn btn-success btn-block col-sm-6' ng-click='addLike(profile.id,user.id)' ng-disabled='profile.likesId.includes(user.id)'>like</button>
+                <button class="btn btn-danger btn-block col-sm-6" ng-click='addDislike(profile.id,user.id)' ng-disabled='profile.dislikesId.includes(user.id)'>dislike</button>
             </div>
             <table class='table table-striped'>
                 <tr>
