@@ -36,9 +36,12 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
     $(window).scrollTop(0)
     $scope.getProfile(user)
 
-    if ($state.current.name === 'profile') {
-        profileSrvc.chart()
-    }
+    // if ($state.current.name === 'profile') {
+    //     console.log($scope.profile);
+    //     if ($scope.profile) {
+    //         profileSrvc.chart($scope.profile)
+    //     }
+    // }
     // NOTE: Controlls the likes/dislikes
     $scope.addLike = function(prof,user){
         let obj = {

@@ -1,6 +1,6 @@
-app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
+app.controller('mainCtrl', function($scope, $state, mainSrvc, profileSrvc, $location) {
     //checks email and pw and logs in user
-
+    // ####################// ####################// ####################// ####################
     $scope.login = function(email, password) {
         let obj = {
             email: email,
@@ -30,6 +30,7 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
         $scope.user = undefined
         mainSrvc.logout()
     }
+    // ####################// ####################// ####################// ####################
     //create user
     $scope.createUser = function(username, email, password, passCheck) {
         $('.createUserMessage').slideDown(500)
@@ -70,6 +71,7 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
         mainSrvc.createUserMessage(obj)
         location.reload()
     }
+    // ####################// ####################// ####################// ####################
     //gets user data if logged in
     mainSrvc.getUser().then((res) => {
         if (res.data.username) {
@@ -88,9 +90,10 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, $location) {
             $scope.profile.messages.map(x => x.readableDate = moment(x.date).format('MMM Do YYYY, hh:mm:ss a'))
             $scope.profile.messages.sort((x, y) => x.date < y.date)
             $scope.profile.games = JSON.parse($scope.profile.games)
-            $scope.profile.likesId = $scope.profile.likes.map(x=> x.poster_id)
-            $scope.profile.dislikesId = $scope.profile.dislikes.map(x=> x.poster_id)
-            console.log($scope.profile);
+            $scope.profile.likesId = $scope.profile.likes.map(x => x.poster_id)
+            $scope.profile.dislikesId = $scope.profile.dislikes.map(x => x.poster_id)
+            profileSrvc.chart($scope.profile)
         }, err => console.log(err))
     }
+    // ####################// ####################// ####################// ####################
 })

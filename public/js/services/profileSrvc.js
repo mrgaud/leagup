@@ -1,22 +1,24 @@
 app.service('profileSrvc', function($http) {
 
-
-    this.addLike = function(obj){
-        $http.post('/user/addLike',obj)
+    // ####################// ####################// ####################// ####################
+    this.addLike = function(obj) {
+        $http.post('/user/addLike', obj)
     }
-    this.addDislike = function(obj){
-        $http.post('/user/addDislike',obj)
+    this.addDislike = function(obj) {
+        $http.post('/user/addDislike', obj)
     }
-    this.removeLike = function(obj){
-        $http.post('/user/removeLike',obj)
+    this.removeLike = function(obj) {
+        $http.post('/user/removeLike', obj)
     }
-    this.removeDislike = function(obj){
-        $http.post('/user/removeDislike',obj)
+    this.removeDislike = function(obj) {
+        $http.post('/user/removeDislike', obj)
     }
+    // ####################// ####################// ####################// ####################
     this.editProfile = function(obj) {
         $http.patch('/user/edit_profile', obj)
     }
 
+    // ####################// ####################// ####################// ####################
     this.upload = function(id) {
         var files = document.getElementById(id).files;
         var file = files[0];
@@ -25,7 +27,6 @@ app.service('profileSrvc', function($http) {
             return;
         }
         get_signed_request(file);
-
     }
 
     function get_signed_request(file) {
@@ -58,7 +59,7 @@ app.service('profileSrvc', function($http) {
         };
         xhr.send(file);
     }
-
+    // ####################// ####################// ####################// ####################
     this.games = [{
         name: 'DOTA2',
         image: '/assets/dota2.png'
@@ -78,87 +79,77 @@ app.service('profileSrvc', function($http) {
         name: 'Overwatch',
         image: '/assets/overwatchlogo.png'
     }]
-    this.chart = function() {
-        $(document).ready(function() {
-            var runChart = function() {
-                let timer = setInterval(function() {
-                    let profile = $('#prof').text()
-                    if (profile.length) {
-                        clearInterval(timer)
-                        profile = JSON.parse(profile);
+    // ####################// ####################// ####################// ####################
+    this.chart = function(profile) {
 
-                        date = profile.likes.map(x => {
-                            x.x = moment(x.date).format("MM DD YYYY")
-                            return {
-                                x: x.date,
-                                z: moment(x.date).format("MM DD YYYY"),
-                                y: 0
-                            }
-                        })
-                        date = date.map(f => {
-                            for (let i = 0; i < date.length; i++) {
-                                if (date[i].z === f.z) {
-                                    f.y += 1
-                                }
-                            }
-                            return f 
-                        })
-
-                        function chart() {
-                            var ctx = $('#myChart')
-                            var scatterChart = new Chart(ctx, {
-                                type: 'line',
-                                data: {
-                                    label: 'days',
-                                    datasets: [{
-                                            label: 'likes',
-                                            backgroundColor: "rgba(75,192,192,0.0)",
-                                            borderColor: "rgba(75,192,192,1)",
-                                            data: date,
-                                            tension: 1
-                                        },
-                                        {
-                                            label: 'dislikes',
-                                            // data: ,
-                                            backgroundColor: 'rgba(192,100,100,0.0)',
-                                            borderColor: 'rgba(192,100,100,1)'
-                                        }
-                                    ]
-                                },
-                                options: {
-                                    scales: {
-                                        yAxes: [{
-                                            type: 'linear',
-                                            display: true,
-                                            gridLines: {
-                                                display: false
-                                            }
-                                            // position:'bottom',
-                                        }],
-                                        xAxes: [{
-                                            type: 'time',
-                                            display: true,
-                                            time: {
-                                                unit: "day",
-                                                round: 'day'
-                                            },
-
-                                            gridLines: {
-                                                display: false
-                                            }
-                                        }]
-
-                                    }
-                                }
-                            });
-                        }
-                        chart()
+        var likeCounts = {};
+        profile.likes.forEach(function(x) {
+            likeCounts[moment(x.date).format('YYYYMMDD')] = (likeCounts[moment(x.date).format('YYYYMMDD')] || 0) + 1;
+        });
+        let likes = [];
+        for(let o in likeCounts){
+            likes.push({x:o, y:likeCounts[o]})
+        }
+        var dislikeCounts = {};
+        profile.dislikes.forEach(function(x){
+            dislikeCounts[moment(x.date).format('YYYYMMDD')] = (dislikeCounts[moment(x.date).format('YYYYMMDD')] || 0) + 1;
+        })
+        let dislikes = []
+        for(let o in dislikeCounts){
+            dislikes.push({x:o, y:dislikeCounts[o]})
+        }
+        console.log(likes);
+        var ctx = $('#myChart')
+        var scatterChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                label: 'days',
+                datasets: [{
+                        label: 'likes',
+                        backgroundColor: "rgba(75,192,192,0.3)",
+                        borderColor: "rgba(75,192,192,.5)",
+                        data: likes,
+                        tension: 0.2
+                    },
+                    {
+                        label: 'dislikes',
+                        data: dislikes,
+                        backgroundColor: 'rgba(192,100,100,0.3)',
+                        borderColor: 'rgba(192,100,100,.5)'
                     }
-                }, 300)
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        gridLines:{
+                            display:true
+                        }
+                        // stacked:true
+                    }],
+                    xAxes: [{
+                        type: 'time',
+                        position: 'bottom',
+                        time: {
+                            unit: "day",
+                            round: 'day'
+                        },
+                        gridLines: {
+                            display: true
+                        },
+                        stacked:true
+                    }]
+                }
             }
-            runChart()
         })
     }
+    // ####################// ####################// ####################// ####################
 })
 
 
