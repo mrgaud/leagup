@@ -17,7 +17,18 @@ app.service('profileSrvc', function($http) {
     this.editProfile = function(obj) {
         $http.patch('/user/edit_profile', obj)
     }
+    this.getProfile = function(user) {
+        return $http.get('/user/getProfile/' + user)
+    }
+    // ####################// ####################// ####################// ####################
 
+    this.createUserMessage = function(message) {
+        $http.post('/user/userMessages', message).then(res => {
+            console.log(res);
+        }, err => {
+            console.log(err);
+        })
+    }
     // ####################// ####################// ####################// ####################
     this.upload = function(id) {
         var files = document.getElementById(id).files;
@@ -87,16 +98,22 @@ app.service('profileSrvc', function($http) {
             likeCounts[moment(x.date).format('YYYYMMDD')] = (likeCounts[moment(x.date).format('YYYYMMDD')] || 0) + 1;
         });
         let likes = [];
-        for(let o in likeCounts){
-            likes.push({x:o, y:likeCounts[o]})
+        for (let o in likeCounts) {
+            likes.push({
+                x: o,
+                y: likeCounts[o]
+            })
         }
         var dislikeCounts = {};
-        profile.dislikes.forEach(function(x){
+        profile.dislikes.forEach(function(x) {
             dislikeCounts[moment(x.date).format('YYYYMMDD')] = (dislikeCounts[moment(x.date).format('YYYYMMDD')] || 0) + 1;
         })
         let dislikes = []
-        for(let o in dislikeCounts){
-            dislikes.push({x:o, y:dislikeCounts[o]})
+        for (let o in dislikeCounts) {
+            dislikes.push({
+                x: o,
+                y: dislikeCounts[o]
+            })
         }
         console.log(likes);
         var ctx = $('#myChart')
@@ -128,8 +145,8 @@ app.service('profileSrvc', function($http) {
                         ticks: {
                             beginAtZero: true
                         },
-                        gridLines:{
-                            display:true
+                        gridLines: {
+                            display: true
                         }
                         // stacked:true
                     }],
@@ -143,7 +160,7 @@ app.service('profileSrvc', function($http) {
                         gridLines: {
                             display: true
                         },
-                        stacked:true
+                        stacked: true
                     }]
                 }
             }

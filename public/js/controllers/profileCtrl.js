@@ -2,11 +2,24 @@ console.log(Date.now());
 app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
 
     $scope.games = profileSrvc.games;
-
+    //grabs profile based on page you are on and displays it
+    $scope.getProfile = function() {
+        let user = $location.url().replace('/user/', '')
+        profileSrvc.getProfile(user).then(res => {
+            $scope.profile = res.data
+            $scope.profile.messages.map(x => x.readableDate = moment(x.date).format('MMM Do YYYY, hh:mm:ss a'))
+            $scope.profile.messages.sort((x, y) => x.date < y.date)
+            $scope.profile.games = JSON.parse($scope.profile.games)
+            $scope.profile.likesId = $scope.profile.likes.map(x => x.poster_id)
+            $scope.profile.dislikesId = $scope.profile.dislikes.map(x => x.poster_id)
+            profileSrvc.chart($scope.profile)
+        }, err => console.log(err))
+    }
+    //##########################//##########################//##########################
     if ($location.url() === '/edit_profile' && !$scope.user) {
         $location.path('login_signup')
     }
-
+    //##########################//##########################//##########################
     $scope.editProfile = function(description) {
         let checked = []
         $('input[type=checkbox]:checked').each(function(index, checkbox) {
@@ -27,44 +40,55 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
         $location.path('/user/' + $scope.user.username)
         location.reload()
     }
-
+    //##########################//##########################//##########################
     $scope.upload = function(id) {
         profileSrvc.upload(id)
     }
-
+    //##########################//##########################//##########################
     let user = $location.url().replace('/user/', '')
     $(window).scrollTop(0)
     $scope.getProfile(user)
+    //##########################//##########################//##########################
 
-    // if ($state.current.name === 'profile') {
-    //     console.log($scope.profile);
-    //     if ($scope.profile) {
-    //         profileSrvc.chart($scope.profile)
-    //     }
-    // }
+    //##########################//##########################//##########################
     // NOTE: Controlls the likes/dislikes
-    $scope.addLike = function(prof,user){
+    $scope.addLike = function(prof, user) {
         let obj = {
-            user_id:prof,
-            poster_id:user,
-            date:Date.now()
+            user_id: prof,
+            poster_id: user,
+            date: Date.now()
         }
-        if($scope.profile.dislikesId.includes(user)){
+        if ($scope.profile.dislikesId.includes(user)) {
             profileSrvc.removeDislike(obj)
         }
         profileSrvc.addLike(obj)
-        location.reload()
+        $scope.getProfile()
     }
-    $scope.addDislike = function(prof,user){
+    $scope.addDislike = function(prof, user) {
         let obj = {
-            user_id:prof,
-            poster_id:user,
-            date:Date.now()
+            user_id: prof,
+            poster_id: user,
+            date: Date.now()
         }
-        if($scope.profile.likesId.includes(user)){
+        if ($scope.profile.likesId.includes(user)) {
             profileSrvc.removeLike(obj)
         }
         profileSrvc.addDislike(obj)
-        location.reload()
+        $scope.getProfile()
+    }
+    //##########################//##########################//##########################
+
+    $scope.createUserMessage = function(message) {
+        let obj = {
+            message: message,
+            // FIXME: this little fucker
+            user_id: $scope.profile.id,
+            poster_id: $scope.user.id,
+            poster_username: $scope.user.username,
+            date: Date.now(),
+            poster_image: $scope.user.imageUrl
+        }
+        profileSrvc.createUserMessage(obj)
+        $scope.getProfile()
     }
 })

@@ -19,10 +19,7 @@ app.service('teamSrvc', function($http, $state) {
         }
         return $http.post('/team/leaveTeam', obj)
     }
-
-    this.teamChart = function(team) {
-        console.log(team);
-    }
+    //#############################//#############################
 
     this.createTeamMessage = function(user, team, message) {
         let obj = {
@@ -34,8 +31,53 @@ app.service('teamSrvc', function($http, $state) {
         return $http.post('/team/createTeamsMessage', obj)
     }
 
-    this.teamChart = function(profile) {
-        
-    }
+    //#############################//#############################
+    this.teamChart = function(team) {
+        function getData(liDi) {
+            let likes = team[liDi].map(f => moment(f.date).format('YYYYMMDD'))
+            counts = {}
+            likes.forEach(i => counts[i] = (counts[i] || 0) + 1)
+            likes = []
+            for (var o in counts) {
+                likes.push({
+                    x: o,
+                    y: counts[o]
+                })
+            }
+            return likes
+        }
+        likes = getData('likes')
+        dislikes = getData('dislikes')
 
+        console.log(likes);
+        let ctx = $('#teamChart')
+        let teamChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    borderColor: 'rgba(100,100,155,.7)',
+                    data: likes,
+                    tension: .5
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        type: 'linear',
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        stacked: true
+                    }],
+                    xAxes: [{
+                        type: 'time',
+                        time: {
+                            unit: 'day',
+                            round: 'day'
+                        }
+                    }]
+                }
+            }
+        })
+    }
 })

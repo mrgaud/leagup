@@ -64,9 +64,14 @@
         <div class="well col-sm-3 col-xs-10 col-xs-offset-1 col-sm-offset-0">
             <div class="row" ng-hide='profile.id===user.id || !user'>
                 <!-- NOTE: set like and dislike up -->
-                <button class='btn btn-success btn-block col-sm-6' ng-click='addLike(profile.id,user.id)' ng-disabled='profile.likesId.includes(user.id)'>like</button>
-                <button class="btn btn-danger btn-block col-sm-6" ng-click='addDislike(profile.id,user.id)' ng-disabled='profile.dislikesId.includes(user.id)'>dislike</button>
+                <div class="col-sm-6 col-xs-12">
+                    <button class='btn btn-success btn-block col-sm-6' ng-click='addLike(profile.id,user.id)' ng-disabled='profile.likesId.includes(user.id)'>like</button>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <button class="btn btn-danger btn-block col-sm-6" ng-click='addDislike(profile.id,user.id)' ng-disabled='profile.dislikesId.includes(user.id)'>dislike</button>
+                </div>
             </div>
+            <br>
             <table class='table table-striped'>
                 <tr>
                     <th>likes:</td>

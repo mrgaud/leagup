@@ -3,5 +3,6 @@ app.component('navComp',{
     bindings:{
         user:'=',
         logout:'&'
-    }
+    },
+    controller:'navCtrl'
 })
