@@ -1,0 +1,53 @@
+<div class="container">
+    <h1>Search Results</h1>
+    <label for="filter">filter results</label>
+    <input type="text" class='form-control' name="" value="" ng-model='sortText' placeholder="Username, description, games">
+    <br>
+    <div class="row ">
+        <div class="col-sm-6" ng-show='results.users.length>0'>
+            <h2>Users</h2>
+            <div ng-repeat='poser in results.users | filter:sortText'>
+                <a ui-sref="profile({username:poser.username})" class='darken'>
+                    <div class="panel panel-default darken">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <img ng-src="{{poser.imageUrl}}" class='searchIcon img-responsive' ng-show='poser.imageUrl' alt="">
+                                    <img src="default-user-image.png" class='searchIcon img-responsive' ng-show='!poser.imageUrl' alt="">
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <h4>{{poser.username.length>13?poser.username.slice(0,13)+'...':poser.username}}</h4>
+                                    <p>{{poser.description}}</p>
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-xs-2 col-lg-4" class="img-responsive" ng-repeat='game in poser.games'>
+                                            <img ng-src="{{game.image}}" class='img-responsive' alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <br>
+            </div>
+        </div>
+        <div class="col-sm-6" ng-show='results.teams.length>0'>
+            <h2>Teams</h2>
+            <div ng-repeat='team in results.teams | filter:sortText'>
+                <div class="media">
+                    <div class="media-left">
+                        <img class="media-object" ng-src='{{team.team_photo}}' style="max-width:64px;max-height:64px;" ng-show='team.team_photo'></i>
+                        <img src="default-user-image.png" class='media-object' style="max-width:64px;max-height:64px;" ng-show='!team.team_photo' alt="">
+                    </div>
+                    <div class="media-body">
+                        <a ui-sref='team({id:team.team_id})'><h4 class="media-heading">{{team.team_name}}</h4></a>
+                        <p>{{team.team_description}}</p>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>

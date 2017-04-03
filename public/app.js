@@ -25,7 +25,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('createTeam',{
             url:'/createTeam',
-            templateUrl:'/views/createTeam.html',
+            templateUrl:'/views/create_team.html',
             controller:'teamCtrl'
+        })
+        .state('search',{
+            url:'/search/:query',
+            templateUrl:'/views/searchPage.html',
+            controller:'navCtrl'
         })
 })

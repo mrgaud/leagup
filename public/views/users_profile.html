@@ -3,7 +3,7 @@
     <div class="row">
         <!-- <div class="col-md-3 col-sm-6">
              <!-- id='userImage' -->
-            <!-- <img ng-hide='profile.imageUrl' class='img-responsive' src="/default-user-image.png" alt="">
+        <!-- <img ng-hide='profile.imageUrl' class='img-responsive' src="/default-user-image.png" alt="">
             <img ng-show='profile.imageUrl' class='img-responsive'ng-src='{{profile.imageUrl}}' style='background-image:url({{profile.imageUrl}})' alt="">
         </div> -->
         <!-- <div class="col-md-5 col-sm-6 col-xs-12">
@@ -17,51 +17,47 @@
                 <h4><a ui-sref='team({id:team.team_id})'>{{team.team_name}}<span ng-show='profile.id===team.team_admin'> (admin)</span></a><h4>
             </div>
         </div> -->
-        <div class="col-md-6 well ">
+        <div class="col-md-12 well ">
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-xs-3">
                     <img ng-src="{{profile.imageUrl}}" ng-show='profile.imageUrl' class='img-responsive' alt="">
-                    <img src="default-user-image.png" class='img-responsive max-heigt'  ng-hide='profile.imageUrl' alt="">
+                    <img src="default-user-image.png" class='img-responsive max-heigt' ng-hide='profile.imageUrl' alt="">
                 </div>
                 <div class="col-xs-6">
-                    <h2>{{profile.username}}</h2>
-                    <h4 class="text-muted">{{profile.description}}</h4>
+                    <h3>{{profile.username}}</h3>
+                    <h5 class="text-muted">{{profile.description}}</h5>
+                </div>
+                <div class="col-xs-3">
+                    <div class="row">
+                        <div class="col-xs-12" ng-show='user.id == profile.id'>
+                            <a ui-sref='createTeam' class='btn btn-success btn-block' name="button">Create Team</a>
+                            <br>
+                        </div>
+                        <div class="col-xs-12" ng-show='user.id == profile.id'>
+                            <a ui-sref='edit_profile' class='btn btn-info btn-block' name="button">Edit Profile</a>
+                            <br>
+                        </div>
+                        <div class="col-xs-12" ng-show='user.id !== profile.id && user'>
+                            <a ui-sref='edit_profile' class='btn btn-warning btn-block' name="button">add Friend</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-            <div class="col-md-6">
+    <!-- <div class="col-md-6">
                 <h3>Teams</h3>
                 <div class="teams-flex">
                     <div ng-repeat='team in profile.teams'>
                         <h4><a ui-sref='team({id:team.team_id})'>{{team.team_name}}<span ng-show='profile.id===team.team_admin'> (admin)</span></a><h4>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 
-    </div>
-    <div class="row well" ng-hide='!user'>
-        <div class="col-md-4 col-xs-12"ng-show='profile.id===user.id'>
-            <a class='btn btn-block btn-success' ui-sref='createTeam'>Create Team</a>
-        </div>
-        <div class="col-md-4 col-xs-12"ng-show='profile.id!==user.id'>
-            <a class='btn btn-block btn-success'>Team Invite</a>
-            <!-- NOTE: Dropdown here -->
-        </div>
-        <div class="col-md-4 col-xs-12"ng-show='profile.id!==user.id'>
-            <a class='btn btn-block btn-primary'>Message</a>
-            <!-- NOTE: Dropdown here -->
-        </div>
-        <div class="col-md-4 col-xs-12"ng-show='profile.id===user.id'>
-            <a class='btn btn-block btn-info' ui-sref='edit_profile'>Edit Profile</a>
-        </div>
-        <div class="col-md-4 col-xs-12"ng-show='profile.id===user.id'>
-            <!-- <a class='btn btn-block btn-primary' ui-sref='edit_profile'>Play Now</a> -->
-        </div>
-    </div>
     <div class="row">
-        <div class="well col-sm-3 col-xs-10 col-xs-offset-1 col-sm-offset-0">
+        <div class="well col-sm-3 col-xs-10">
             <div class="row" ng-hide='profile.id===user.id || !user'>
                 <!-- NOTE: set like and dislike up -->
                 <div class="col-sm-6 col-xs-12">
@@ -75,15 +71,15 @@
             <table class='table table-striped'>
                 <tr>
                     <th>likes:</td>
-                    <td>{{profile.likes?profile.likes.length:0}}</td>
+                        <td>{{profile.likes?profile.likes.length:0}}</td>
                 </tr>
                 <tr>
                     <th>dislikes:</td>
-                    <td>{{profile.dislikes?profile.dislikes.length:0}}</td>
+                        <td>{{profile.dislikes?profile.dislikes.length:0}}</td>
                 </tr>
                 <tr>
                     <th>teams:</td>
-                    <td>{{profile.teams?profile.teams.length:0}}</td>
+                        <td>{{profile.teams?profile.teams.length:0}}</td>
                 </tr>
             </table>
             <div class="row">
@@ -93,10 +89,20 @@
             </div>
         </div>
         <!-- FIXME:  -->
-        <div class="well col-sm-8 col-xs-12 col-sm-offset-1">
+        <div class=" col-md-7 col-xs-12">
             <canvas id="myChart" ng-load='runChart()' style="max-width:100%"></canvas>
         </div>
+        <div class="col-md-2 col-xs-12" ng-show='profile.teams.length>0'>
+            <h3 ng-show='profile.teams.length>0'>Teams</h3>
+            <div class="well">
+                <div ng-repeat='team in profile.teams' class="">
+                    <h5><a ui-sref='team({id:team.team_id})'>{{team.team_name}}<span ng-show='profile.id===team.team_admin'> (admin)</span></a><h5>
+                </div>
+            </div>
+        </div>
     </div>
+    <br>
+    <br>
 
 
     <div class="well row">
@@ -126,3 +132,22 @@
         </div>
     </div>
 </div>
+<!-- <div class="row well" ng-hide='!user'>
+    <div class="col-md-4 col-xs-12"ng-show='profile.id===user.id'>
+        <a class='btn btn-block btn-success' ui-sref='createTeam'>Create Team</a>
+    </div>
+    <div class="col-md-4 col-xs-12"ng-show='profile.id!==user.id'>
+        <a class='btn btn-block btn-success'>Team Invite</a>
+        <!-- NOTE: Dropdown here -->
+    <!-- </div>
+    <div class="col-md-4 col-xs-12"ng-show='profile.id!==user.id'>
+        <a class='btn btn-block btn-primary'>Message</a>
+        <!-- NOTE: Dropdown here -->
+    <!-- </div>
+    <div class="col-md-4 col-xs-12"ng-show='profile.id===user.id'>
+        <a class='btn btn-block btn-info' ui-sref='edit_profile'>Edit Profile</a>
+    </div>
+    <div class="col-md-4 col-xs-12"ng-show='profile.id===user.id'> -->
+        <!-- <a class='btn btn-block btn-primary' ui-sref='edit_profile'>Play Now</a> -->
+    <!-- </div> -->
+<!-- </div> -->

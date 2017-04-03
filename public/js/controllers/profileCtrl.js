@@ -32,10 +32,15 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
                 }
             }
         })
+        if ((document.getElementById('preview').src).includes('leag')) {
+            image = document.getElementById('preview').src;
+        }
         let obj = {
+            image:image || $scope.user.imageUrl,
             description: description || $scope.user.description,
             games: checked.length ? checked : $scope.user.games
         }
+        console.log(obj);
         profileSrvc.editProfile(obj)
         $location.path('/user/' + $scope.user.username)
         location.reload()

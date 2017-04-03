@@ -51,7 +51,7 @@ module.exports = {
     getProfile: function(req, res) {
         db.getProfileByUsername([req.params.username], function(err, profile) {
             profile = profile[0]
-            if(!profile) return 
+            if(!profile) return
             db.getUserMessages([profile.id], function(err, message) {
                 profile.messages = message;
                 db.getUserLikes([profile.id], function(err, likes) {
@@ -71,8 +71,8 @@ module.exports = {
     },
     editProfile: function(req, res) {
         req.body.games = JSON.stringify(req.body.games);
-        db.editProfile([req.user.id, req.body.description, req.body.games], function(err, profile) {
-            console.log(err);
+        db.editProfile([req.user.id, req.body.description, req.body.games, req.body.image], function(err, profile) {
+            console.log(err,'################',profile);
         })
     },
     addLike: function(req, res) {

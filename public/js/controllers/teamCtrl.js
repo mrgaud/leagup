@@ -32,6 +32,8 @@ app.controller('teamCtrl', function($scope, $state, teamSrvc, profileSrvc, $loca
     $scope.upload = function(id) {
         profileSrvc.upload(id)
     }
+
+
     $scope.createTeam = function(name, desc, photo, priv) {
         let checked = []
         let image;

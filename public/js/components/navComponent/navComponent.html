@@ -10,7 +10,7 @@
       </button>
             <a class="navbar-brand">Leag Up</a>
         </div>
-
+    {{result}}
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
@@ -43,9 +43,9 @@
             </ul>
             <form class="navbar-form navbar-right">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search" ng-model='query'>
+                    <input type="text" class="form-control" placeholder="Search" ng-keydown='$event.which === 13 && goTo(query)' ng-model='query'>
                 </div>
-                <button type="submit" class="btn btn-default" ng-click='search(query)'>Submit</button>
+                <a type="submit" class="btn btn-default" ui-sref='search({query:query})'>Submit</a>
             </form>
         </div>
         <!-- /.navbar-collapse -->

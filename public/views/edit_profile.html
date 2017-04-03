@@ -1,4 +1,3 @@
-
 <div class="container">
     <div class="row well">
         <div>
@@ -18,9 +17,9 @@
         <div class="col-md-3 well">
             <h2>Profile Image</h2>
             <label for="upload"></label>
-            <input type="file" id="upload" onchange="loadFile(event)" ng-model='image'>
-            <img id='output'/ style="max-height:200px;max-width:200px;">
-        </div>
+            <input type="file" id="image">
+            <a class="btn btn-primay" ng-click="upload('image')">upload</a>
+            <img src="" class='img-responsive' id='preview' width='200px' alt=""> </div>
         <div class="col-md-8 col-md-offset-1 well">
             <h3>Description</h3>
             <textarea class="form-control" ng-model='description'></textarea>
