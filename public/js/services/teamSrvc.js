@@ -1,6 +1,6 @@
 app.service('teamSrvc', function($http, $state) {
     this.createTeam = function(obj) {
-        $http.post('/team/create_team', obj)
+        $http.post('/team/createTeam', obj)
     }
     this.getTeam = function() {
         return $http.get('/team/getTeam/' + $state.params.id)
@@ -20,7 +20,22 @@ app.service('teamSrvc', function($http, $state) {
         return $http.post('/team/leaveTeam', obj)
     }
 
-    this.teamChart = function(team){
+    this.teamChart = function(team) {
         console.log(team);
     }
+
+    this.createTeamMessage = function(user, team, message) {
+        let obj = {
+            team_id: team.team_id,
+            poster_id: user.id,
+            poster_username: user.username,
+            message: message
+        }
+        return $http.post('/team/createTeamsMessage', obj)
+    }
+
+    this.teamChart = function(profile) {
+        
+    }
+
 })

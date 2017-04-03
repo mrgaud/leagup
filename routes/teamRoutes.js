@@ -6,7 +6,9 @@ const router = express.Router();
 
 router.get('/getTeam/:id', team.index)
 
-router.post('/create_team', team.create)
+router.post('/createTeam', team.create)
+
+router.post('/createTeamsMessage', team.createMessage)
 
 router.post('/joinTeam', team.join)
 

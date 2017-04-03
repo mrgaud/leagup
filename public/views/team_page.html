@@ -63,13 +63,13 @@
     <div class="row well">
         <h3>Comments</h3>
         <div class="row">
-            <form class="form-group">
+            <form class="form-group" ng-hide='!user'>
                 <div class="col-sm-10">
-                    <input type="text" class='form-control' ng-model='comment' name="comment" value="" placeholder="New comment">
+                    <input type="text" class='form-control' ng-model='message' name="comment" value="" placeholder="New comment">
                     <label for="comment"></label>
                 </div>
                 <div class="col-sm-2">
-                    <button ng-click='addComment(comment)' class='btn  btn-block btn-primary'>Post</button>
+                    <button class='btn  btn-block btn-primary' ng-click='createTeamsMessage(message)'>Post</button>
                 </div>
             </form>
         </div>

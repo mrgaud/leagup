@@ -13,7 +13,16 @@ module.exports = {
             return team
         })
     },
-    createMessage: function(req){
-        
+    createMessage: function(req) {
+        db.createTeamsMessage([
+            req.body.team_id,
+            req.body.poster_id,
+            req.body.poster_username,
+            req.body.message,
+            Date.now()
+        ],(err,message)=>{
+            console.log(err,message)
+            return message
+        })
     }
 }

@@ -1,5 +1,5 @@
 app.controller('teamCtrl', function($scope, $state, teamSrvc, profileSrvc, $location) {
-    $state.current.name === 'create_team' && !$scope.user ? $location.path('login_signup') : ''
+    $state.current.name === 'createTeam' && !$scope.user ? $location.path('login_signup') : ''
     $scope.games = profileSrvc.games
     $scope.options = [{
         label: "only I can invite",
@@ -16,6 +16,7 @@ app.controller('teamCtrl', function($scope, $state, teamSrvc, profileSrvc, $loca
 
     if ($state.current.name === "team") {
         teamSrvc.getTeam().then(res => {
+            res.data.messages.sort((x, y) => x.date < y.date)
             res.data.messages = res.data.messages.map(x => {
                 x.date = moment(x.date).format('MMM Do YYYY, h:mm:ss a')
                 return x
@@ -71,6 +72,20 @@ app.controller('teamCtrl', function($scope, $state, teamSrvc, profileSrvc, $loca
         teamSrvc.leaveTeam($scope.user.id, $scope.team.team_id)
         location.reload()
     }
-
+    $scope.createTeamsMessage = function(message) {
+        teamSrvc.createTeamMessage($scope.user, $scope.team, message).then((res) => {
+            teamSrvc.getTeam().then(res => {
+                res.data.messages.sort((x, y) => x.date < y.date)
+                res.data.messages = res.data.messages.map(x => {
+                    x.date = moment(x.date).format('MMM Do YYYY, h:mm:ss a')
+                    return x
+                })
+                $scope.team = res.data
+                teamSrvc.teamChart($scope.team)
+            }, err => {
+                console.log(err);
+            })
+        })
+    }
 
 })
