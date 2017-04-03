@@ -20,9 +20,38 @@ module.exports = {
             req.body.poster_username,
             req.body.message,
             Date.now()
-        ],(err,message)=>{
-            console.log(err,message)
+        ], (err, message) => {
+            console.log(err, message)
             return message
+        })
+    },
+    //###########################//###########################//###########################
+    //###########################//###########################//###########################
+    //###########################//###########################//###########################
+    addLike: function(req) {
+        db.run(`insert into teams_likes(team_id,user_id,date)
+        values(${req.body.team_id},${req.body.user_id},${req.body.date})`, (err, likes) => {
+            console.log(err, likes);
+            return likes
+        })
+    },
+    addDislike: function(req) {
+        db.run(`insert into teams_dislikes(team_id,user_id,date)
+        values(${req.body.team_id},${req.body.user_id},${req.body.date})`, (err, dislikes) => {
+            console.log(err,'addlikeerror', dislikes);
+            return dislikes
+        })
+    },
+    removeLike:function(req){
+        db.run(`delete from teams_likes where team_id = ${req.body.team_id} and user_id = ${req.body.user_id} returning *`,(err,likes)=>{
+            console.log(err,likes);
+            return likes
+        })
+    },
+    removeDislike:function(req){
+        db.run(`delete from teams_dislikes where team_id = ${req.body.team_id} and user_id = ${req.body.user_id} returning *`,(err,dislikes)=>{
+            console.log(err,dislikes);
+            return dislikes
         })
     }
 }

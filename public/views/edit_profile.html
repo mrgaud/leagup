@@ -14,18 +14,22 @@
         </div>
     </div>
     <div class="row form-group">
-        <div class="col-md-3 well">
+        <div class="col-md-12 well">
             <h2>Profile Image</h2>
-            <label for="upload"></label>
+            <form class="form-group" action="index.html" method="post">
+                <label for="url">bring it photo from online (I won't tell anybody)</label>
+                <input type="text" name="url" id='url' class='form-control' ng-model='url' value="">
+            </form>
+            <label for="upload">or upload from your computer</label>
             <input type="file" id="image">
             <a class="btn btn-primay" ng-click="upload('image')">upload</a>
             <img src="" class='img-responsive' id='preview' width='200px' alt=""> </div>
-        <div class="col-md-8 col-md-offset-1 well">
+        <div class="col-md-12 well">
             <h3>Description</h3>
-            <textarea class="form-control" ng-model='description'></textarea>
+            <textarea class="form-control" ng-model='description' placeholder='{{user.description}}'></textarea>
         </div>
     </div>
-    <button class="col-sm-12 col-md-6 col-md-offset-3 btn btn-success" ng-click='editProfile(description)'>Submit</button>
+    <button class="col-sm-12 col-md-6 col-md-offset-3 btn btn-success" ng-click='editProfile(description,url)'>Submit</button>
 </div>
 <!-- <input type="file" accept="image/*" onChange="loadFile(event)">
 <img id="output"/> -->

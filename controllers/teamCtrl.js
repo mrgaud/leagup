@@ -52,5 +52,22 @@ module.exports = {
     },
     createMessage: function(req,res){
         res.send(teamSrvc.createMessage(req))
+    },
+    //###########################//###########################//###########################
+    //###########################//###########################//###########################
+    //###########################//###########################//###########################
+    addLike:function(req,res){
+        res.send(teamSrvc.addLike(req))
+    },
+    addDislike:function(req,res){
+        res.send(teamSrvc.addDislike(req))
+    },
+    removeLike:function(req,res){
+        console.log('made it here');
+        res.send(teamSrvc.removeLike(req))
+    },
+    removeDislike:function(req,res){
+        console.log('made it here too');
+        res.send(teamSrvc.removeDislike(req))
     }
 }

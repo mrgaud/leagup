@@ -19,8 +19,9 @@ app.service('teamSrvc', function($http, $state) {
         }
         return $http.post('/team/leaveTeam', obj)
     }
-    //#############################//#############################
-
+    //###########################//###########################//###########################
+    //###########################//###########################//###########################
+    //###########################//###########################//###########################
     this.createTeamMessage = function(user, team, message) {
         let obj = {
             team_id: team.team_id,
@@ -30,8 +31,25 @@ app.service('teamSrvc', function($http, $state) {
         }
         return $http.post('/team/createTeamsMessage', obj)
     }
+    //###########################//###########################//###########################
+    //###########################//###########################//###########################
+    //###########################//###########################//###########################
 
-    //#############################//#############################
+    this.addLike = function(obj) {
+        return $http.post('/team/addLike', obj)
+    }
+    this.addDislike = function(obj) {
+        return $http.post('/team/addDislike', obj)
+    }
+    this.removeLike = function(obj) {
+        return $http.post('/team/removeLike', obj)
+    }
+    this.removeDislike = function(obj) {
+        return $http.post('/team/removeDislike', obj)
+    }
+    //###########################//###########################//###########################
+    //###########################//###########################//###########################
+    //###########################//###########################//###########################
     this.teamChart = function(team) {
         function getData(liDi) {
             let likes = team[liDi].map(f => moment(f.date).format('YYYYMMDD'))
@@ -65,6 +83,7 @@ app.service('teamSrvc', function($http, $state) {
                     yAxes: [{
                         type: 'linear',
                         ticks: {
+                            stepSize: 1,
                             beginAtZero: true
                         },
                         stacked: true

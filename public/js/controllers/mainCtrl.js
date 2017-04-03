@@ -66,7 +66,7 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, profileSrvc, $loca
     //         poster_id: $scope.user.id,
     //         poster_username: $scope.user.username,
     //         date: Date.now(),
-    //         poster_image: $scope.user.imageUrl
+    //         poster_image: $scope.user.image_url
     //     }
     //     mainSrvc.createUserMessage(obj)
     //     location.reload()
