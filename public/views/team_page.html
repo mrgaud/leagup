@@ -1,30 +1,38 @@
 <div class="container">
     <!-- NOTE: header and join/leave button -->
     <div class="row ">
-        <div class="col-md-9 well well-sm">
+        <div class="col-xs-12 well well-sm">
             <div class="row">
-                <div class="col-sm-4 col-xs-6">
+                <div class="col-sm-3 col-xs-6">
                     <img ng-src="{{team.team_photo}}" alt="" class="img-responsive">
                 </div>
-                <div class="col-md-8">
+                <div class="col-sm-5">
                     <h1>
                         {{team.team_name}}
                     </h1>
                     <h4>{{team.team_description}}</h4>
                 </div>
+                <div class="col-sm-2 col-sm-offset-2">
+                    <a class="btn btn-primary btn-block" ng-hide='user.teamNames.includes(team.team_name) || team.privacy !== 0' ng-click='joinTeam()'>join</a>
+                    <a class="btn btn-danger btn-block" ng-show='user.teamNames.includes(team.team_name)' ng-click='leaveTeam()'>leave</a>
+                </div>
             </div>
         </div>
 
-        <div class="col-md-3 clearfix" ng-hide='!user'>
-            <a class="btn btn-primary btn-block" ng-hide='user.teamNames.includes(team.team_name) || team.privacy !== 0' ng-click='joinTeam()'>join</a>
-            <a class="btn btn-danger btn-block" ng-show='user.teamNames.includes(team.team_name)' ng-click='leaveTeam()'>leave</a>
-        </div>
-    </div>
+            <!-- <a class="btn btn-primary btn-block" ng-hide='user.teamNames.includes(team.team_name) || team.privacy !== 0' ng-click='joinTeam()'>join</a>
+            <a class="btn btn-danger btn-block" ng-show='user.teamNames.includes(team.team_name)' ng-click='leaveTeam()'>leave</a> -->
     <!-- ########################################## -->
     <!-- ########################################## -->
     <!-- ########################################## -->
     <div class="row">
         <div class="col-md-3 well">
+            <div class="col-sm-6" ng-show='user'>
+                <button type="button" class="btn btn-block btn-success"name="button" ng-click='addLike()' ng-disabled='team.likesId.includes(user.id)'>like</button>
+            </div>
+            <div class="col-sm-6"ng-show='user'>
+                <button type="button" class="btn btn-block btn-danger"name="button" ng-click='addDislike()' ng-disabled='team.dislikesId.includes(user.id)'>dislike</button>
+                <br>
+            </div>
             <table class='table table-striped'>
                 <tr>
                     <th>likes</td>

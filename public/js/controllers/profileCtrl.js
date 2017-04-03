@@ -20,7 +20,7 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
         $location.path('login_signup')
     }
     //##########################//##########################//##########################
-    $scope.editProfile = function(description) {
+    $scope.editProfile = function(description,url) {
         let checked = []
         $('input[type=checkbox]:checked').each(function(index, checkbox) {
             checked.push($(checkbox).attr('id'));
@@ -34,9 +34,13 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
         })
         if ((document.getElementById('preview').src).includes('leag')) {
             image = document.getElementById('preview').src;
+        }else if(url){
+            image = url
+            console.log(image);
         }
+        console.log(image);
         let obj = {
-            image:image || $scope.user.imageUrl,
+            image:image || $scope.user.image_url,
             description: description || $scope.user.description,
             games: checked.length ? checked : $scope.user.games
         }
@@ -91,7 +95,7 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
             poster_id: $scope.user.id,
             poster_username: $scope.user.username,
             date: Date.now(),
-            poster_image: $scope.user.imageUrl
+            poster_image: $scope.user.image_url
         }
         profileSrvc.createUserMessage(obj)
         $scope.getProfile()

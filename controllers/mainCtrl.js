@@ -23,7 +23,9 @@ module.exports = {
                 where lower(team_name) like lower('%${req.params.terms}%') limit 20`, (err, teams) => {
                 console.log(users, teams);
                 teams.map(x => {
-                    x.games = JSON.parse(x.games)
+                    if(x.games){
+                        x.games = JSON.parse(x.games)
+                    }
                     return x
                 })
                 res.send({
