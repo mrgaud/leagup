@@ -1,5 +1,5 @@
-app.controller('teamCtrl', function($scope,$state, teamSrvc, profileSrvc, $location) {
-    $state.current.name === 'create_team' && !$scope.user?$location.path('login_signup'):''
+app.controller('teamCtrl', function($scope, $state, teamSrvc, profileSrvc, $location) {
+    $state.current.name === 'create_team' && !$scope.user ? $location.path('login_signup') : ''
     $scope.games = profileSrvc.games
     $scope.options = [{
         label: "only I can invite",
@@ -14,10 +14,16 @@ app.controller('teamCtrl', function($scope,$state, teamSrvc, profileSrvc, $locat
 
     $scope.priv = $scope.options[2]
 
-    if($state.current.name==="team"){
-        teamSrvc.getTeam().then(res=>{
+    if ($state.current.name === "team") {
+        teamSrvc.getTeam().then(res => {
+            res.data.messages = res.data.messages.map(x => {
+                x.date = moment(x.date).format('MMM Do YYYY, h:mm:ss a')
+                return x
+            })
             $scope.team = res.data
-        },err=>{
+            console.log(res.data);
+            teamSrvc.teamChart($scope.team)
+        }, err => {
             console.log(err);
         })
     }
@@ -25,7 +31,7 @@ app.controller('teamCtrl', function($scope,$state, teamSrvc, profileSrvc, $locat
     $scope.upload = function(id) {
         profileSrvc.upload(id)
     }
-    $scope.createTeam = function(name,desc,photo,priv){
+    $scope.createTeam = function(name, desc, photo, priv) {
         let checked = []
         let image;
         $('input[type=checkbox]:checked').each(function(index, checkbox) {
@@ -39,23 +45,32 @@ app.controller('teamCtrl', function($scope,$state, teamSrvc, profileSrvc, $locat
             }
         })
         checked = JSON.stringify(checked)
-        if((document.getElementById('preview').src).includes('leag')){
+        if ((document.getElementById('preview').src).includes('leag')) {
             image = document.getElementById('preview').src;
-        }else if(photo){
+        } else if (photo) {
             image = photo
-        }else{
+        } else {
             image = null;
         }
         let obj = {
-            team_name:name,
-            team_description:desc,
-            team_photo:image,
-            privacy:priv.value,
-            team_games:checked
+            team_name: name,
+            team_description: desc,
+            team_photo: image,
+            privacy: priv.value,
+            team_games: checked
         }
-        console.log(obj);
         teamSrvc.createTeam(obj)
-        $location.path('/user/'+$scope.user.username)
+        $location.path('/user/' + $scope.user.username)
     }
+
+    $scope.joinTeam = function() {
+        teamSrvc.joinTeam($scope.user.id, $scope.team.team_id)
+        location.reload()
+    }
+    $scope.leaveTeam = function() {
+        teamSrvc.leaveTeam($scope.user.id, $scope.team.team_id)
+        location.reload()
+    }
+
 
 })

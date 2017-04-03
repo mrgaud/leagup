@@ -1,12 +1,12 @@
 <div id="prof" style="display:none">{{profile}}</div>
 <div class="container">
-    <div class="row well">
-        <div class="col-md-3 col-sm-6">
+    <div class="row">
+        <!-- <div class="col-md-3 col-sm-6">
              <!-- id='userImage' -->
-            <img ng-hide='profile.imageUrl' class='img-responsive' src="/default-user-image.png" alt="">
+            <!-- <img ng-hide='profile.imageUrl' class='img-responsive' src="/default-user-image.png" alt="">
             <img ng-show='profile.imageUrl' class='img-responsive'ng-src='{{profile.imageUrl}}' style='background-image:url({{profile.imageUrl}})' alt="">
-        </div>
-        <div class="col-md-5 col-sm-6 col-xs-12">
+        </div> -->
+        <!-- <div class="col-md-5 col-sm-6 col-xs-12">
             <h1 class="">{{profile.username}}</h1>
             <p ng-show='profile.description'>{{profile.description}}</p>
             <a ui-sref="edit_profile" class="btn btn-lg btn-primary" ng-show='profile.id === user.id && !user.games'>Finish out your profile</a>
@@ -16,7 +16,29 @@
             <div ng-repeat='team in profile.teams'>
                 <h4><a ui-sref='team({id:team.team_id})'>{{team.team_name}}<span ng-show='profile.id===team.team_admin'> (admin)</span></a><h4>
             </div>
+        </div> -->
+        <div class="col-md-6 well ">
+            <div class="row">
+                <div class="col-xs-6">
+                    <img ng-src="{{profile.imageUrl}}" ng-show='profile.imageUrl' class='img-responsive' alt="">
+                    <img src="default-user-image.png" class='img-responsive max-heigt'  ng-hide='profile.imageUrl' alt="">
+                </div>
+                <div class="col-xs-6">
+                    <h2>{{profile.username}}</h2>
+                    <h4 class="text-muted">{{profile.description}}</h4>
+                </div>
+            </div>
         </div>
+
+            <div class="col-md-6">
+                <h3>Teams</h3>
+                <div class="teams-flex">
+                    <div ng-repeat='team in profile.teams'>
+                        <h4><a ui-sref='team({id:team.team_id})'>{{team.team_name}}<span ng-show='profile.id===team.team_admin'> (admin)</span></a><h4>
+                    </div>
+                </div>
+            </div>
+
 
     </div>
     <div class="row well" ng-hide='!user'>
@@ -35,7 +57,7 @@
             <a class='btn btn-block btn-info' ui-sref='edit_profile'>Edit Profile</a>
         </div>
         <div class="col-md-4 col-xs-12"ng-show='profile.id===user.id'>
-            <a class='btn btn-block btn-primary' ui-sref='edit_profile'>Play Now</a>
+            <!-- <a class='btn btn-block btn-primary' ui-sref='edit_profile'>Play Now</a> -->
         </div>
     </div>
     <div class="row">
@@ -91,7 +113,7 @@
                             <div class="panel-heading"><a ui-sref='profile({username:message.poster_username})' ng-click='getProfile(message.poster_username)' class="messagesName">{{message.poster_username}}</a></cite>
                             </div>
                             <div class="panel-body right">{{message.message}}</div>
-                            <div class="panel-footer messageCite">{{message.readableDate}}</div>
+                            <div class="panel-footer messageCite text-muted">{{message.readableDate}}</div>
                         </div>
                     </div>
                 </div>

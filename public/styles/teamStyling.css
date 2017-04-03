@@ -1,1 +1,7 @@
-
+.max-heigt{
+    max-height: 200px;
+}
+.teams-flex{
+    display: flex;
+    flex-direction: column;
+}

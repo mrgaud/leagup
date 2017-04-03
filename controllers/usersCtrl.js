@@ -1,16 +1,12 @@
 const db = require('../db');
 const bcrypt = require('bcryptjs');
-const userSrvc = require('../serivce/userSrvc.js');
+const userSrvc = require('../service/userSrvc.js');
 
 function hash(given) {
     const salt = bcrypt.genSaltSync(10);
     return bcrypt.hashSync(given, salt)
 }
-// function(req, res) {
-//     req.body.allUsers = db.getAllUsers(function(err, users) {
-//         res.status(200).send(users)
-//     })
-// }
+
 module.exports = {
     index: function() {
         return userSrvc.index()
@@ -55,6 +51,7 @@ module.exports = {
     getProfile: function(req, res) {
         db.getProfileByUsername([req.params.username], function(err, profile) {
             profile = profile[0]
+            if(!profile) return 
             db.getUserMessages([profile.id], function(err, message) {
                 profile.messages = message;
                 db.getUserLikes([profile.id], function(err, likes) {

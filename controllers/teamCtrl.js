@@ -1,5 +1,5 @@
 const db = require('../db');
-
+const teamSrvc = require('../service/teamSrvc.js');
 module.exports = {
     create: function(req, res) {
         db.teams.insert({
@@ -24,14 +24,33 @@ module.exports = {
             team_id: req.params.id
         }, function(err, teams) {
             let team = teams[0]
-            db.getTeamsMembers([team.team_id], (err, members)=>{
-                members = members.map(x=>{
+            if(err)return err
+            db.getTeamsMembers([team.team_id], (err, members) => {
+                members = members.map(x => {
                     delete x.password
                     return x
                 })
                 team.members = members
-                res.status(200).send(team)
+                db.getTeamsLikes([req.params.id],(err,likes)=>{
+                    team.likes = likes
+                    db.getTeamsDislikes([req.params.id],(err,dislikes)=>{
+                        team.dislikes = dislikes
+                        db.getTeamsMessages([req.params.id],(err,messages)=>{
+                            team.messages = messages
+                            res.status(200).send(team)
+                        })
+                    })
+                })
             })
         })
+    },
+    join: function(req, res) {
+        res.send(teamSrvc.join(req))
+    },
+    leave: function(req,res){
+        res.send(teamSrvc.leave(req))
+    },
+    createMessage: function(req,res){
+        res.send(teamSrvc.createMessage(req))
     }
 }

@@ -16,32 +16,40 @@
         </div>
 
         <div class="col-md-3 clearfix" ng-hide='!user'>
-            <a class="btn btn-primary btn-block" ng-hide='user.teamNames.includes(team.team_name) || team.privacy !== 0'>join</a>
-            <a class="btn btn-danger btn-block" ng-show='user.teamNames.includes(team.team_name)'>leave</a>
+            <a class="btn btn-primary btn-block" ng-hide='user.teamNames.includes(team.team_name) || team.privacy !== 0' ng-click='joinTeam()'>join</a>
+            <a class="btn btn-danger btn-block" ng-show='user.teamNames.includes(team.team_name)' ng-click='leaveTeam()'>leave</a>
         </div>
     </div>
-
+    <!-- ########################################## -->
+    <!-- ########################################## -->
+    <!-- ########################################## -->
     <div class="row">
         <div class="col-md-3 well">
             <table class='table table-striped'>
                 <tr>
                     <th>likes</td>
-                    <td>{{team.likes.length || 0}}</td>
+                        <td>{{team.likes.length || 0}}</td>
                 </tr>
                 <tr>
                     <th>dislikes</td>
-                    <td>{{team.dislikes.length || 0}}</td>
+                        <td>{{team.dislikes.length || 0}}</td>
                 </tr>
                 <tr>
                     <th>members</td>
-                    <td>{{team.members.length || 0}}</td>
+                        <td>{{team.members.length || 0}}</td>
                 </tr>
 
             </table>
         </div>
+        <!-- ########################################## -->
+        <!-- ########################################## -->
+        <!-- ########################################## -->
         <div class="col-md-6">
             <canvas id="teamCanvas" class='img-responsive'></canvas>
         </div>
+        <!-- ########################################## -->
+        <!-- ########################################## -->
+        <!-- ########################################## -->
         <div class="col-md-3 well clearfix">
             <h3>Members</h3>
             <div ng-repeat='member in team.members'>
@@ -49,8 +57,34 @@
             </div>
         </div>
     </div>
+    <!-- ########################################## -->
+    <!-- ########################################## -->
+    <!-- ########################################## -->
+    <div class="row well">
+        <h3>Comments</h3>
+        <div class="row">
+            <form class="form-group">
+                <div class="col-sm-10">
+                    <input type="text" class='form-control' ng-model='comment' name="comment" value="" placeholder="New comment">
+                    <label for="comment"></label>
+                </div>
+                <div class="col-sm-2">
+                    <button ng-click='addComment(comment)' class='btn  btn-block btn-primary'>Post</button>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default panel-primary" ng-repeat='message in team.messages'>
+                    <div class="panel-heading"><a ui-sref='profile({username:message.poster_username})' ng-click='getProfile(message.poster_username)' class="messagesName">{{message.poster_username}}</a></cite>
+                    </div>
+                    <div class="panel-body right">{{message.message}}</div>
+                    <div class="panel-footer messageCite text-muted">{{message.date}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-{{team}}
 <!-- <div class="col-md-3 well well-sm">
     <h3>Members</h3>
     <div ng-repeat='member in team.members'>

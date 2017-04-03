@@ -8,4 +8,8 @@ router.get('/getTeam/:id', team.index)
 
 router.post('/create_team', team.create)
 
+router.post('/joinTeam', team.join)
+
+router.post('/leaveTeam', team.leave)
+
 module.exports = router
