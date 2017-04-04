@@ -4,7 +4,7 @@
         <div class="col-xs-12 well well-sm">
             <div class="row">
                 <div class="col-sm-3 col-xs-6">
-                    <img ng-src="{{team.team_photo}}" alt="" class="img-responsive">
+                    <img ng-src="{{team.team_photo}}" style='max-height:230px' alt="" class="img-responsive">
                 </div>
                 <div class="col-sm-5">
                     <h1>
@@ -15,12 +15,11 @@
                 <div class="col-sm-2 col-sm-offset-2">
                     <a class="btn btn-primary btn-block" ng-hide='user.teamNames.includes(team.team_name) || team.privacy !== 0' ng-click='joinTeam()'>join</a>
                     <a class="btn btn-danger btn-block" ng-show='user.teamNames.includes(team.team_name)' ng-click='leaveTeam()'>leave</a>
+                    <a ui-sref='edit_team({admin:team.team_admin,team:team.team_id})' ng-show='user.id === team.team_admin' class='btn btn-info btn-block' >Edit Team</a>
                 </div>
             </div>
         </div>
 
-            <!-- <a class="btn btn-primary btn-block" ng-hide='user.teamNames.includes(team.team_name) || team.privacy !== 0' ng-click='joinTeam()'>join</a>
-            <a class="btn btn-danger btn-block" ng-show='user.teamNames.includes(team.team_name)' ng-click='leaveTeam()'>leave</a> -->
     <!-- ########################################## -->
     <!-- ########################################## -->
     <!-- ########################################## -->
@@ -93,9 +92,3 @@
         </div>
     </div>
 </div>
-<!-- <div class="col-md-3 well well-sm">
-    <h3>Members</h3>
-    <div ng-repeat='member in team.members'>
-        <a ui-sref="profile({username:member.username})"><h4>{{member.username}}<span ng-show='member.user_id===team.team_admin'> (admin)</span></h4></a>
-    </div>
-</div> -->

@@ -1,6 +1,8 @@
 app.controller('mainCtrl', function($scope, $state, mainSrvc, profileSrvc, $location) {
     //checks email and pw and logs in user
     // ####################// ####################// ####################// ####################
+    // ####################// ####################// ####################// ####################
+    // ####################// ####################// ####################// ####################
     $scope.login = function(email, password) {
         let obj = {
             email: email,
@@ -14,6 +16,7 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, profileSrvc, $loca
                 })
             }
             $scope.user = res.data
+            console.log($scope.user);
             // FIXME:
 
             $location.path(`/user/${$scope.user.username}`)
@@ -57,20 +60,6 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, profileSrvc, $loca
             $scope.err = "Passwords do not match"
         }
     }
-    //creates user message
-    // $scope.createUserMessage = function(message) {
-    //     let obj = {
-    //         message: message,
-    //         // FIXME: this little fucker
-    //         user_id: $scope.profile.id,
-    //         poster_id: $scope.user.id,
-    //         poster_username: $scope.user.username,
-    //         date: Date.now(),
-    //         poster_image: $scope.user.image_url
-    //     }
-    //     mainSrvc.createUserMessage(obj)
-    //     location.reload()
-    // }
     // ####################// ####################// ####################// ####################
     //gets user data if logged in
     mainSrvc.getUser().then((res) => {
@@ -82,18 +71,5 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, profileSrvc, $loca
     }, (err) => {
         err ? '' : console.log('no err')
     })
-    //grabs profile based on page you are on and displays it
-    // $scope.getProfile = function() {
-    //     let user = $location.url().replace('/user/', '')
-    //     mainSrvc.getProfile(user).then(res => {
-    //         $scope.profile = res.data
-    //         $scope.profile.messages.map(x => x.readableDate = moment(x.date).format('MMM Do YYYY, hh:mm:ss a'))
-    //         $scope.profile.messages.sort((x, y) => x.date < y.date)
-    //         $scope.profile.games = JSON.parse($scope.profile.games)
-    //         $scope.profile.likesId = $scope.profile.likes.map(x => x.poster_id)
-    //         $scope.profile.dislikesId = $scope.profile.dislikes.map(x => x.poster_id)
-    //         profileSrvc.chart($scope.profile)
-    //     }, err => console.log(err))
-    // }
     // ####################// ####################// ####################// ####################
 })

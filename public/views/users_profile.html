@@ -21,23 +21,25 @@
                             <a ui-sref='edit_profile' class='btn btn-info btn-block' name="button">Edit Profile</a>
                             <br>
                         </div>
-                        <div class="col-xs-12" ng-show='user.id !== profile.id && user'>
+                        <!-- <div class="col-xs-12" ng-show='user.id !== profile.id && user'>
                             <a ui-sref='edit_profile' class='btn btn-warning btn-block' name="button">add Friend</a>
+                        </div> -->
+                        <div class="col-xs-12" ng-show='user.id !== profile.id'>
+                            <a  class='btn btn-warning btn-block' data-toggle='dropdown' data>Inite to Team <span class='caret'></span></a>
+                            <ul class="dropdown-menu">
+                                <div ng-repeat='team in user.teams'>
+                                    <div ng-hide='profile.teamName.includes(team.team_name)'>
+                                        <li style="text-align:center" class='btn btn-block btn-default' ng-show='team.privacy==0||team.privacy===1 && user.teamNames.includes(team.team_name)|| team.privacy===2 && team.team_admin === user.id'>{{team.team_name}}</li>
+                                    </div>
+                                </div>
+                            </ul>
+                            <br>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- <div class="col-md-6">
-                <h3>Teams</h3>
-                <div class="teams-flex">
-                    <div ng-repeat='team in profile.teams'>
-                        <h4><a ui-sref='team({id:team.team_id})'>{{team.team_name}}<span ng-show='profile.id===team.team_admin'> (admin)</span></a><h4>
-                    </div>
-                </div>
-            </div> -->
 
 
     <div class="row">
@@ -73,16 +75,16 @@
             </div>
         </div>
         <!-- FIXME:  -->
-        <div class=" col-md-7 col-xs-12">
+        <div class=" col-md-6 col-xs-12">
             <canvas id="myChart" ng-load='runChart()' style="max-width:100%"></canvas>
         </div>
-        <div class="col-md-2 col-xs-12" ng-show='profile.teams.length>0'>
+        <div class="col-md-3 col-xs-12 well" ng-show='profile.teams.length>0'>
             <h3 ng-show='profile.teams.length>0'>Teams</h3>
-            <div class="well">
-                <div ng-repeat='team in profile.teams' class="">
-                    <h5><a ui-sref='team({id:team.team_id})'>{{team.team_name}}<span ng-show='profile.id===team.team_admin'> (admin)</span></a><h5>
+            <!-- <div class="well"> -->
+            <div ng-repeat='team in profile.teams' class="">
+                <h5><a ui-sref='team({id:team.team_id})'>{{team.team_name}}<span ng-show='profile.id===team.team_admin'> (admin)</span></a><h5>
                 </div>
-            </div>
+            <!-- </div> -->
         </div>
     </div>
     <br>
@@ -116,22 +118,3 @@
         </div>
     </div>
 </div>
-<!-- <div class="row well" ng-hide='!user'>
-    <div class="col-md-4 col-xs-12"ng-show='profile.id===user.id'>
-        <a class='btn btn-block btn-success' ui-sref='createTeam'>Create Team</a>
-    </div>
-    <div class="col-md-4 col-xs-12"ng-show='profile.id!==user.id'>
-        <a class='btn btn-block btn-success'>Team Invite</a>
-        <!-- NOTE: Dropdown here -->
-    <!-- </div>
-    <div class="col-md-4 col-xs-12"ng-show='profile.id!==user.id'>
-        <a class='btn btn-block btn-primary'>Message</a>
-        <!-- NOTE: Dropdown here -->
-    <!-- </div>
-    <div class="col-md-4 col-xs-12"ng-show='profile.id===user.id'>
-        <a class='btn btn-block btn-info' ui-sref='edit_profile'>Edit Profile</a>
-    </div>
-    <div class="col-md-4 col-xs-12"ng-show='profile.id===user.id'> -->
-        <!-- <a class='btn btn-block btn-primary' ui-sref='edit_profile'>Play Now</a> -->
-    <!-- </div> -->
-<!-- </div> -->

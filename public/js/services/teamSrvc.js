@@ -19,6 +19,10 @@ app.service('teamSrvc', function($http, $state) {
         }
         return $http.post('/team/leaveTeam', obj)
     }
+
+    this.edit_team = function(obj){
+        return $http.patch('/team/edit_team',obj)
+    }
     //###########################//###########################//###########################
     //###########################//###########################//###########################
     //###########################//###########################//###########################
@@ -67,7 +71,6 @@ app.service('teamSrvc', function($http, $state) {
         likes = getData('likes')
         dislikes = getData('dislikes')
 
-        console.log(dislikes);
         let ctx = $('#teamChart')
         let teamChart = new Chart(ctx, {
             type: 'line',
@@ -80,6 +83,7 @@ app.service('teamSrvc', function($http, $state) {
                     tension: .5
                 },{
                     label:'dislikes',
+                    data:dislikes,
                     borderColor:'rgba(192,100,100,0.3)',
                     backgroundColor:'rgba(192,100,100,.5)'
                 }]

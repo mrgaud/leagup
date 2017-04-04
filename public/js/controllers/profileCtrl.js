@@ -1,4 +1,3 @@
-console.log(Date.now());
 app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
 
     $scope.games = profileSrvc.games;
@@ -20,7 +19,7 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
         $location.path('login_signup')
     }
     //##########################//##########################//##########################
-    $scope.editProfile = function(description,url) {
+    $scope.editProfile = function(description, url) {
         let checked = []
         $('input[type=checkbox]:checked').each(function(index, checkbox) {
             checked.push($(checkbox).attr('id'));
@@ -35,19 +34,16 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
         console.log(url);
         if ((document.getElementById('preview').src).includes('leag')) {
             image = document.getElementById('preview').src;
-        }else if(url){
+        } else if (url) {
             image = url
-            console.log(image);
-        }else{
+        } else {
             image = $scope.user.image_url
         }
-        console.log(image);
         let obj = {
-            image:image || $scope.user.image_url,
+            image: image || $scope.user.image_url,
             description: description || $scope.user.description,
             games: checked.length ? checked : $scope.user.games
         }
-        console.log(obj);
         profileSrvc.editProfile(obj)
         $location.path('/user/' + $scope.user.username)
         location.reload()

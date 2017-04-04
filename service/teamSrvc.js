@@ -53,5 +53,17 @@ module.exports = {
             console.log(err,dislikes);
             return dislikes
         })
+    },
+    edit_team:function(req){
+        db.editTeam([
+            req.body.user_id,
+            req.body.team_id,
+            req.body.team_description,
+            req.body.team_games,
+            req.body.team_photo,
+            req.body.privacy
+        ],(err,team)=>{
+            console.log(err,team);
+        })
     }
 }

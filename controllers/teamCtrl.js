@@ -69,5 +69,12 @@ module.exports = {
     removeDislike:function(req,res){
         console.log('made it here too');
         res.send(teamSrvc.removeDislike(req))
+    },
+    //###########################//###########################//###########################
+    //###########################//###########################//###########################
+    //###########################//###########################//###########################
+    edit_team:function(req,res){
+        console.log('here i am');
+        res.send(teamSrvc.edit_team(req))
     }
 }

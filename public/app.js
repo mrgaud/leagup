@@ -33,4 +33,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl:'/views/searchPage.html',
             controller:'navCtrl'
         })
+        .state('edit_team',{
+            url:'/edit_team/:admin/:team',
+            templateUrl:'/views/edit_team.html',
+            controller:'teamCtrl'
+        })
 })

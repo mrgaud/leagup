@@ -1,5 +1,6 @@
-app.controller('teamCtrl', function($scope, $state, teamSrvc, profileSrvc, $location) {
+app.controller('teamCtrl', function($scope, $state, $stateParams, teamSrvc, profileSrvc, $location) {
     $state.current.name === 'createTeam' && !$scope.user ? $location.path('login_signup') : ''
+    $state.current.name === 'edit_team' && !$scope.user ? $location.path('login_signup') : ''
     $scope.games = profileSrvc.games
     $scope.options = [{
         label: "only I can invite",
@@ -24,10 +25,10 @@ app.controller('teamCtrl', function($scope, $state, teamSrvc, profileSrvc, $loca
                 return x
             })
             $scope.team = res.data
-            $scope.team.likesId = $scope.team.likes.map(x=>x.id)
-            $scope.team.dislikesId=$scope.team.dislikes.map(x=>x.user_id)
-            console.log($scope.team);
+            $scope.team.likesId = $scope.team.likes.map(x => x.id)
+            $scope.team.dislikesId = $scope.team.dislikes.map(x => x.user_id)
             teamSrvc.teamChart($scope.team)
+            console.log($scope.team);
         }, err => {
             console.log(err);
         })
@@ -122,15 +123,13 @@ app.controller('teamCtrl', function($scope, $state, teamSrvc, profileSrvc, $loca
                 return x
             })
             $scope.team = res.data
-            $scope.team.likesId = $scope.team.likes.map(x=>x.id)
-            $scope.team.dislikesId=$scope.team.dislikes.map(x=>x.user_id)
-            console.log($scope.team.dislikesId);
+            $scope.team.likesId = $scope.team.likes.map(x => x.id)
+            $scope.team.dislikesId = $scope.team.dislikes.map(x => x.user_id)
             teamSrvc.teamChart($scope.team)
         }, err => {
             console.log(err);
         })
     }
-
 
     $scope.addDislike = function() {
         let obj = {
@@ -144,9 +143,6 @@ app.controller('teamCtrl', function($scope, $state, teamSrvc, profileSrvc, $loca
             }
         })
         teamSrvc.addDislike(obj)
-
-
-
         teamSrvc.getTeam().then(res => {
             res.data.messages.sort((x, y) => x.date < y.date)
             res.data.messages = res.data.messages.map(x => {
@@ -154,13 +150,58 @@ app.controller('teamCtrl', function($scope, $state, teamSrvc, profileSrvc, $loca
                 return x
             })
             $scope.team = res.data
-            $scope.team.likesId = $scope.team.likes.map(x=>x.id)
-            $scope.team.dislikesId=$scope.team.dislikes.map(x=>x.user_id)
-            console.log($scope.team.dislikesId);
+            $scope.team.likesId = $scope.team.likes.map(x => x.id)
+            $scope.team.dislikesId = $scope.team.dislikes.map(x => x.user_id)
             teamSrvc.teamChart($scope.team)
         }, err => {
             console.log(err);
         })
     }
-
+    // ####################// ####################// ####################// ####################
+    // ####################// ####################// ####################// ####################
+    // ####################// ####################// ####################// ####################
+    $scope.edit_team = function(desc, photo, priv, team) {
+        if ($scope.user.id === $stateParams.admin) {
+            alert("you do not have permission to edit this team. you will now be redirected back home")
+            $location.path('profile({username:$scope.user.username})')
+            return
+        }
+        let checked = []
+        let image;
+        if ((document.getElementById('preview').src).includes('leag')) {
+            image = document.getElementById('preview').src;
+        } else if (photo) {
+            image = photo
+        } else {
+            image = null;
+        }
+        $('input[type=checkbox]:checked').each(function(index, checkbox) {
+            checked.push($(checkbox).attr('id'));
+        });
+        checked = checked.map(x => {
+            for (let i = 0; i < $scope.games.length; i++) {
+                if ($scope.games[i].name === x) {
+                    return x = $scope.games[i]
+                }
+            }
+        })
+        checked = JSON.stringify(checked)
+        if ((document.getElementById('preview').src).includes('leag')) {
+            image = document.getElementById('preview').src;
+        } else if (photo) {
+            image = photo
+        } else {
+            image = null;
+        }
+        let obj = {
+            user_id:$scope.user.id,
+            team_id:$stateParams.team,
+            team_description: desc || null,
+            team_photo: image,
+            privacy: priv.value,
+            team_games: checked
+        }
+        teamSrvc.edit_team(obj)
+        $location.path(`team/${$stateParams.team}`)
+    }
 })
