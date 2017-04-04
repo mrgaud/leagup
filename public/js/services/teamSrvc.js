@@ -67,15 +67,21 @@ app.service('teamSrvc', function($http, $state) {
         likes = getData('likes')
         dislikes = getData('dislikes')
 
-        console.log(likes);
+        console.log(dislikes);
         let ctx = $('#teamChart')
         let teamChart = new Chart(ctx, {
             type: 'line',
             data: {
                 datasets: [{
-                    borderColor: 'rgba(100,100,155,.7)',
+                    label:'likes',
+                    borderColor: 'rgba(75,192,192,.5)',
+                    backgroundColor:'rgba(75,192,192,0.3)',
                     data: likes,
                     tension: .5
+                },{
+                    label:'dislikes',
+                    borderColor:'rgba(192,100,100,0.3)',
+                    backgroundColor:'rgba(192,100,100,.5)'
                 }]
             },
             options: {
@@ -83,7 +89,7 @@ app.service('teamSrvc', function($http, $state) {
                     yAxes: [{
                         type: 'linear',
                         ticks: {
-                            stepSize: 1,
+                            stepSize: 2,
                             beginAtZero: true
                         },
                         stacked: true

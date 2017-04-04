@@ -32,11 +32,14 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
                 }
             }
         })
+        console.log(url);
         if ((document.getElementById('preview').src).includes('leag')) {
             image = document.getElementById('preview').src;
         }else if(url){
             image = url
             console.log(image);
+        }else{
+            image = $scope.user.image_url
         }
         console.log(image);
         let obj = {
@@ -98,6 +101,7 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
             poster_image: $scope.user.image_url
         }
         profileSrvc.createUserMessage(obj)
+        $scope.comment = ''
         $scope.getProfile()
     }
 })

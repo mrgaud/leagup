@@ -3,55 +3,75 @@
         <div class="col-xs-12">
             <h3 class="bg-success createUserMessage" style="display:none;text-align:center;">Account successfully created. Go ahead and log in</h3>
         </div>
-        <div class="col-sm-12 col-md-6 well">
-            <h2>Create Profile</h2>
-            <form>
-                <div class="form-group">
-                    <p>{{err}}</p>
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" placeholder="BadChumpDallin" ng-model='username'>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" ng-model='email'>
-
-                </div>
-                <div class="form-group" id='pwdiv'>
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="createPassword" placeholder="Password" ng-model='password'>
-                </div>
-                <div class="form-group" id='pwcdiv'>
-                    <label for="exampleInputPassword1">Re-Enter Password</label>
-                    <input type="password" class="form-control" id="createPasswordCheck" placeholder="Password" ng-model='passCheck'>
-                </div>
-                <!-- <div class="form-group">
-                    <label for="exampleInputFile">File input</label>
-                    <input type="file" id="exampleInputFile">
-                </div> -->
-
-                <button type="submit" class="btn btn-default btn-primary" ng-click='createUser(username,email,password,passCheck)'>Submit</button>
-            </form>
+        <div class="col-md-6">
+            <h1>Welcome To Leag-Up</h1>
+            <p class='introText text-muted'>
+                This Website was create to help people like myself find other people to play games with;
+                 Becaues everybody knows playing by yourself sucks.
+                 This website is still a work in progress and will be updated many times into the future.
+                 that being said feel free to send in bug reports so me and my team consisting of me can fix them.
+                 Gosh I'm lonely. Anyway back to building the site. Enjoy.
+            </p>
         </div>
+        <div class="col-sm-12 col-md-3 pull-right">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
 
-
-        <div class="col-sm-12 col-md-3 col-md-offset-3 well">
-            <h2>Login</h2>
-            <p>{{loginErr}}</p>
-            <form>
-                <div class="form-group" id="loginEmailDiv">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="loginEmail" placeholder="Email" ng-model='loginEmail'>
+                    <h2>Login</h2>
                 </div>
-                <div class="form-group" id='loginPassDiv'>
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="loginPass" placeholder="Password" ng-model='loginPass'>
+                <div class="panel-body">
+                    <p>{{loginErr}}</p>
+                    <form>
+                        <div class="form-group" id="loginEmailDiv">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="loginEmail" placeholder="Email" ng-model='loginEmail'>
+                        </div>
+                        <div class="form-group" id='loginPassDiv'>
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="loginPass" placeholder="Password" ng-model='loginPass'>
+                        </div>
+                        <a ui-sref='pw_recover'>forgot passwor?</a>
+                        <br>
+                        <button type="submit" class="btn btn-default btn-primary" ng-click='login(loginEmail,loginPass)'>login</button>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-default btn-primary" ng-click='login(loginEmail,loginPass)'>login</button>
-            </form>
+            </div>
         </div>
 
 
         <!-- row end -->
+    </div>
+    <div class="row">
+        <div class="col-sm-5 col-sm-offset-7  bg-default pull-right">
+            <div class="panel panel-primary">
+                <div class="panel-heading ">
+                    <h2>Create Profile</h2>
+                </div>
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <p>{{err}}</p>
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" placeholder="BadChumpDallin" ng-model='username'>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" ng-model='email'>
+
+                        </div>
+                        <div class="form-group" id='pwdiv'>
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="createPassword" placeholder="Password" ng-model='password'>
+                        </div>
+                        <div class="form-group" id='pwcdiv'>
+                            <label for="exampleInputPassword1">Re-Enter Password</label>
+                            <input type="password" class="form-control" id="createPasswordCheck" placeholder="Password" ng-model='passCheck'>
+                        </div>
+                        <button type="submit" class="btn btn-default btn-primary" ng-click='createUser(username,email,password,passCheck)'>Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- container end -->
 </div>

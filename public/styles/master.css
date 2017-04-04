@@ -1,11 +1,4 @@
-#userImage{
-    background: #000;
-    border: 2px solid lightgrey;
-    height: 200px;
-    width: 200px;
-    background-position: center center;
-    background-size: cover;
-}
+
 .messageCite{
     font-size: .8em;
 }
@@ -39,6 +32,10 @@
 }
 .darken:hover{
     opacity: .7;
+}
+.introText{
+    text-indent: 1em;
+    font-size: 1.5em;
 }
 input[type=checkbox]{
     display: none;

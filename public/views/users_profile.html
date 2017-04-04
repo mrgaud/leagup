@@ -1,26 +1,10 @@
 <div id="prof" style="display:none">{{profile}}</div>
 <div class="container">
     <div class="row">
-        <!-- <div class="col-md-3 col-sm-6">
-             <!-- id='userImage' -->
-        <!-- <img ng-hide='profile.image_url' class='img-responsive' src="/default-user-image.png" alt="">
-            <img ng-show='profile.image_url' class='img-responsive'ng-src='{{profile.image_url}}' style='background-image:url({{profile.image_url}})' alt="">
-        </div> -->
-        <!-- <div class="col-md-5 col-sm-6 col-xs-12">
-            <h1 class="">{{profile.username}}</h1>
-            <p ng-show='profile.description'>{{profile.description}}</p>
-            <a ui-sref="edit_profile" class="btn btn-lg btn-primary" ng-show='profile.id === user.id && !user.games'>Finish out your profile</a>
-        </div>
-        <div class="col-md-4 col-xs-12">
-            <h2 ng-hide='!profile.teams.length'>Teams</h2>
-            <div ng-repeat='team in profile.teams'>
-                <h4><a ui-sref='team({id:team.team_id})'>{{team.team_name}}<span ng-show='profile.id===team.team_admin'> (admin)</span></a><h4>
-            </div>
-        </div> -->
         <div class="col-md-12 well ">
             <div class="row">
-                <div class="col-xs-3">
-                    <img ng-src="{{profile.image_url}}" ng-show='profile.image_url' class='img-responsive' alt="">
+                <div class="col-xs-3 img-rounded bg-white">
+                    <img ng-src="{{profile.image_url}}" ng-show='profile.image_url' class='img-responsive' style='max-height:200px;margin:auto' alt="">
                     <img src="default-user-image.png" class='img-responsive max-heigt' ng-hide='profile.image_url' alt="">
                 </div>
                 <div class="col-xs-6">
@@ -111,7 +95,7 @@
             <form class="form-group">
                 <div class="row" ng-hide='!user'>
                     <div class="col-xs-10">
-                        <input class="form-control" type="text" ng-model='comment'>
+                        <input class="form-control" type="text" ng-model='comment' placeholder="Did you know the founder is a really great guy?">
                     </div>
                     <div class="col-xs-2">
                         <button type="submit" class="btn btn-block btn-primary" ng-click='createUserMessage(comment)'>Post</button>

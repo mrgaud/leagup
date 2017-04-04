@@ -143,7 +143,7 @@ app.service('profileSrvc', function($http) {
                         display: true,
                         position: 'left',
                         ticks: {
-                            stepSize:1,
+                            stepSize:2,
                             beginAtZero: true
                         },
                         gridLines: {
