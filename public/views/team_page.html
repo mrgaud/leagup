@@ -4,7 +4,8 @@
         <div class="col-xs-12 well well-sm">
             <div class="row">
                 <div class="col-sm-3 col-xs-6">
-                    <img ng-src="{{team.team_photo}}" style='max-height:230px' alt="" class="img-responsive">
+                    <img ng-src="{{team.team_photo}}" style='max-height:230px' alt="" ng-show='team.team_photo' class="img-responsive">
+                    <img src="https://assets.donordrive.com/clients/teamkidney/img/avatar-team-default.gif" ng-show='!team.team_photo' class='img-responsive' alt="">
                 </div>
                 <div class="col-sm-5">
                     <h1>

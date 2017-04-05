@@ -65,5 +65,26 @@ module.exports = {
         ],(err,team)=>{
             console.log(err,team);
         })
+    },
+    //##########################//##########################//##########################
+    //##########################//##########################//##########################
+    //##########################//##########################//##########################
+    teamInvite: function(req){
+        db.run(`insert into pending_team_invites(invited,inviter,team)
+        select ${req.body.invited},${req.body.inviter},${req.body.team}
+        where not exists (select * from pending_team_invites where invited = ${req.body.invited} and team = ${req.body.team})
+        `,(err, request)=>{
+            console.log(err,request);
+        })
+    },
+    acceptTeamInvite:function(req){
+        db.run(`delete from pending_team_invites where invited = ${req.body.invited} and team = ${req.body.team}`)
+        db.run(`insert into teams_clients (team_id,user_id)
+        select ${req.body.team},${req.body.invited}
+            where not exists (select * from teams_clients where user_id = ${req.body.invited} and team_id = ${req.body.team})
+        `,(err,teams)=>console.log(err,teams))
+    },
+    declineTeamInvite:function(req){
+        db.run(`delete from pending_team_invites where invited = ${req.body.invited} and team = ${req.body.team}`)
     }
 }

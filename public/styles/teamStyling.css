@@ -5,3 +5,16 @@
     display: flex;
     flex-direction: column;
 }
+.inviteToTeam{
+    cursor: pointer;
+    font-size: 1.2em;
+}
+.inviteToTeam:hover{
+    opacity: .5;
+}
+.decline{
+
+}
+.accept{
+
+}

@@ -60,8 +60,11 @@ module.exports = {
                         profile.dislikes = dislikes
                         db.getUserTeams([profile.id], function(err, teams) {
                             profile.teams = teams
-                            console.log(err);
-                            res.send(profile)
+                            db.getUsersTeamRequests([profile.id],(err,requests)=>{
+                                profile.teamRequests = requests
+                                console.log(err);
+                                res.send(profile)
+                            })
 
                         })
                     })

@@ -10,6 +10,12 @@ router.get('/getTeam/:id', team.index)
 //###########################//###########################//###########################
 router.patch('/edit_team', team.edit_team)
 
+router.post('/teamInvite', team.teamInvite)
+
+router.post('/acceptTeamInvite', team.acceptTeamInvite)
+
+router.post('/declineTeamInvite', team.declineTeamInvite)
+
 router.post('/createTeam', team.create)
 
 router.post('/createTeamsMessage', team.createMessage)

@@ -76,5 +76,15 @@ module.exports = {
     edit_team:function(req,res){
         console.log('here i am');
         res.send(teamSrvc.edit_team(req))
+    },
+    teamInvite:function(req,res){
+        console.log('teamInvite function log');
+        teamSrvc.teamInvite(req)
+    },
+    acceptTeamInvite:function(req,res){
+        teamSrvc.acceptTeamInvite(req)
+    },
+    declineTeamInvite:function(req,res){
+        teamSrvc.declineTeamInvite(req)
     }
 }

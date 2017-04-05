@@ -1,5 +1,13 @@
 app.service('profileSrvc', function($http) {
-
+    this.teamInvite = function(obj){
+        $http.post('team/teamInvite', obj)
+    }
+    this.acceptTeamInvite = function(obj){
+        $http.post('team/acceptTeamInvite',obj)
+    }
+    this.declineTeamInvite = function(obj){
+        $http.post('team/declineTeamInvite',obj)
+    }
     // ####################// ####################// ####################// ####################
     this.addLike = function(obj) {
         $http.post('/user/addLike', obj)

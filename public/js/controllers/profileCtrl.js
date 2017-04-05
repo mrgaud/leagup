@@ -11,13 +11,20 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
             $scope.profile.games = JSON.parse($scope.profile.games)
             $scope.profile.likesId = $scope.profile.likes.map(x => x.poster_id)
             $scope.profile.dislikesId = $scope.profile.dislikes.map(x => x.poster_id)
+            $scope.profile.teamNames = $scope.profile.teams.map(x=>x.team_name)
             profileSrvc.chart($scope.profile)
+            console.log($scope.profile);
         }, err => console.log(err))
     }
     //##########################//##########################//##########################
+    //##########################//##########################//##########################
+    //##########################//##########################//##########################
+
     if ($location.url() === '/edit_profile' && !$scope.user) {
         $location.path('login_signup')
     }
+    //##########################//##########################//##########################
+    //##########################//##########################//##########################
     //##########################//##########################//##########################
     $scope.editProfile = function(description, url) {
         let checked = []
@@ -49,15 +56,19 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
         location.reload()
     }
     //##########################//##########################//##########################
+    //##########################//##########################//##########################
+    //##########################//##########################//##########################
     $scope.upload = function(id) {
         profileSrvc.upload(id)
     }
+    //##########################//##########################//##########################
+    //##########################//##########################//##########################
     //##########################//##########################//##########################
     let user = $location.url().replace('/user/', '')
     $(window).scrollTop(0)
     $scope.getProfile(user)
     //##########################//##########################//##########################
-
+    //##########################//##########################//##########################
     //##########################//##########################//##########################
     // NOTE: Controlls the likes/dislikes
     $scope.addLike = function(prof, user) {
@@ -85,6 +96,8 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
         $scope.getProfile()
     }
     //##########################//##########################//##########################
+    //##########################//##########################//##########################
+    //##########################//##########################//##########################
 
     $scope.createUserMessage = function(message) {
         let obj = {
@@ -98,6 +111,34 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
         }
         profileSrvc.createUserMessage(obj)
         $scope.comment = ''
+        $scope.getProfile()
+    }
+    //##########################//##########################//##########################
+    //##########################//##########################//##########################
+    //##########################//##########################//##########################
+
+    $scope.teamInvite = function(team_id, team_admin, team_privacy) {
+        console.log($scope.user.id, $scope.profile.id, team_id, team_admin);
+        if (team_admin !== $scope.user.id && team_privacy > 1) {
+            alert('You don\'t have nessessary premissions to do that')
+            return
+        }
+        let obj = {
+            invited: $scope.profile.id,
+            inviter: $scope.user.id,
+            team: team_id
+        }
+        profileSrvc.teamInvite(obj)
+    }
+
+    $scope.acceptTeamInvite = function(invited,team){
+        let obj ={invited:invited,team:team}
+        profileSrvc.acceptTeamInvite(obj)
+        $scope.getProfile()
+    }
+    $scope.declineTeamInvite = function(invited, team){
+        let obj = {invited:invited,team:team}
+        profileSrvc.decilineTeamInvite(obj)
         $scope.getProfile()
     }
 })
