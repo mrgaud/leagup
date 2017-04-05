@@ -82,8 +82,9 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
         if ($scope.profile.dislikesId.includes(user)) {
             profileSrvc.removeDislike(obj)
         }
-        profileSrvc.addLike(obj)
-        $scope.getProfile()
+        profileSrvc.addLike(obj).then(res=>{
+            $scope.getProfile()
+        },err=>console.log(err))
     }
     $scope.addDislike = function(prof, user) {
         let obj = {
@@ -94,8 +95,9 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
         if ($scope.profile.likesId.includes(user)) {
             profileSrvc.removeLike(obj)
         }
-        profileSrvc.addDislike(obj)
-        $scope.getProfile()
+        profileSrvc.addDislike(obj).then(res=>{
+            $scope.getProfile()
+        },err=>console.log(err))
     }
     //##########################//##########################//##########################
     //##########################//##########################//##########################
@@ -115,7 +117,7 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
             $scope.getProfile()
             $scope.comment = ''
         })
-        console.log("hit me baby");
+        // console.log("hit me baby");
         // $scope.profile.messages.push(obj)
     }
     //##########################//##########################//##########################

@@ -38,4 +38,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl:'/views/edit_team.html',
             controller:'teamCtrl'
         })
+        .state('pw_recover_setup',{
+            url:'/pw_recover_setup',
+            templateUrl:'views/pw_recovery_setup.html',
+            controller:'profileCtrl'
+        })
 })
