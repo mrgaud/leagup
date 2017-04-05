@@ -37,7 +37,7 @@
                             <br>
                         </div>
                         <div class="col-xs-12" ng-show='user.id == profile.id && user.pw_recovery === 0'>
-                            <a class='btn btn-warning btn-block' name="button">Set Up Password recovery</a>
+                            <a ui-sref='pw_recover_setup' class='btn btn-warning btn-block' name="button">Set Up Password recovery</a>
                             <br>
                         </div>
                         <div class="col-xs-12" ng-show='user.id !== profile.id'>

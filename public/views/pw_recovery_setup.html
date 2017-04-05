@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Password Recovery Setup</h1>
+            <h4 class='text-muted'>All you need to do is fill out questions only you know the answer to followed by their answers.</h4>
+            <h4 class='text-muted'>(Don't worry we know what we're doing. mostly...)</h4>
+        </div>
+    </div>
+    <div class="row well">
+        <div class="col-xs-12">
+            <form class="form-group" action="/form">
+                <label for="firstQ" ng-model='firstQ'>First Question</label>
+                <input type="text" class='form-control' name="firstQ" placeholder="Your dogs favorite color other than white?" autocomplete="off">
+                <label for="firstPw">First Answer</label>
+                <input type="text" class='form-control' name="firstPw" ng-model='firstPw' autocomplete="off" placeholder="What other colors are there?">
+            </form>
+        </div>
+    </div>
+    <div class="row well">
+        <div class="col-xs-12">
+            <form class="form-group" action="/form">
+                <label for="secondQ">Second Question</label>
+                <input type="text" class='form-control' name="secondQ" ng-model='secondQ' placeholder="How many muffins can you fit in a barrel?" autocomplete="off">
+                <label for="firstPw">Second Answer</label>
+                <input type="text" class='form-control' name="firstPw" ng-model='secondPw' autocomplete="off" placeholder="a lot">
+            </form>
+        </div>
+    </div>
+    <div class="row well">
+        <div class="col-xs-12">
+            <form class="form-group" action="/form">
+                <label for="thirdQ">Third Question</label>
+                <input type="text" class='form-control' name="thirdQ" ng-model='thirdQ' placeholder="What... is the air-speed velocity of an unladen swallow?" autocomplete="off">
+                <label for="thirdPw">Third Answer</label>
+                <input type="text" class='form-control' name="thirdPw" ng-model='thirdPw' autocomplete="off" placeholder="An African or European swallow?">
+            </form>
+        </div>
+    </div>
+</div>
