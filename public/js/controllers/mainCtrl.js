@@ -36,7 +36,6 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, profileSrvc, $loca
     // ####################// ####################// ####################// ####################
     //create user
     $scope.createUser = function(username, email, password, passCheck) {
-        $('.createUserMessage').slideDown(500)
         if (password === passCheck) {
             let obj = {
                 username: username,
@@ -44,13 +43,17 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, profileSrvc, $loca
                 password: password
             }
             if (username && email && password) {
-                $('#createPassword').val('')
-                $('#createPasswordCheck').val('')
-                $('#createdUsername').val('')
-                $()
-                mainSrvc.createUser(obj).then(function(res) {}, function(err) {
+                mainSrvc.createUser(obj).then(function(res) {
+                    $scope.login(email,password)
+                }, function(err) {
                     $scope.err = 'Username or email address already in use'
+                    $scope.username = ''
+                    $scope.password = ''
+                    $scope.email = ''
+                    $scope.username = ''
+                    $('.err').show()
                 })
+
             }
         } else {
             $('#createPassword').val('')
@@ -58,6 +61,7 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, profileSrvc, $loca
             $('#createPasswordCheck').val('')
             $('#pwcdiv').addClass('has-error')
             $scope.err = "Passwords do not match"
+            $('.err').show()
         }
     }
     // ####################// ####################// ####################// ####################

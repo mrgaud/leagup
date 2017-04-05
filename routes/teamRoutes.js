@@ -12,6 +12,8 @@ router.patch('/edit_team', team.edit_team)
 
 router.post('/teamInvite', team.teamInvite)
 
+router.post('/kickFromTeam', team.kickFromTeam)
+
 router.post('/acceptTeamInvite', team.acceptTeamInvite)
 
 router.post('/declineTeamInvite', team.declineTeamInvite)

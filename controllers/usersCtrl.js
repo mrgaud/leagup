@@ -19,6 +19,7 @@ module.exports = {
         ]
         db.createUser(userInfo, function(err, users) {
             if (err) {
+                
                 return next(err)
             }
             const data = users[0];
@@ -29,6 +30,9 @@ module.exports = {
             delete data.password
             db.createProfile([data.id], function(err, profile) {
                 console.log(err, profile);
+                if (err) {
+                    return res.status(500)
+                }
                 res.status(200).json(data);
             })
         });
@@ -51,6 +55,7 @@ module.exports = {
     getProfile: function(req, res) {
         db.getProfileByUsername([req.params.username], function(err, profile) {
             profile = profile[0]
+            delete profile.password
             if(!profile) return
             db.getUserMessages([profile.id], function(err, message) {
                 profile.messages = message;

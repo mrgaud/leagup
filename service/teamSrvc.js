@@ -30,10 +30,12 @@ module.exports = {
     //###########################//###########################//###########################
     addLike: function(req) {
         db.run(`insert into teams_likes(team_id,user_id,date)
-        values(${req.body.team_id},${req.body.user_id},${req.body.date})`, (err, likes) => {
+        select ${req.body.team_id}, ${req.body.user_id},${req.body.date}
+        where not exists (select * from teams_likes where team_id = ${req.body.team_id} and user_id = ${req.body.user_id})`, (err, likes) => {
             console.log(err, likes);
             return likes
         })
+        // values(${req.body.team_id},${req.body.user_id},${req.body.date})
     },
     addDislike: function(req) {
         db.run(`insert into teams_dislikes(team_id,user_id,date)
@@ -75,6 +77,11 @@ module.exports = {
         where not exists (select * from pending_team_invites where invited = ${req.body.invited} and team = ${req.body.team})
         `,(err, request)=>{
             console.log(err,request);
+        })
+    },
+    kickFromTeam:function(req){
+        db.run(`delete from teams_clients where user_id = ${req.body.user_id} and team_id = ${req.body.team_id}`,(err,team)=>{
+            console.log(err,team);
         })
     },
     acceptTeamInvite:function(req){

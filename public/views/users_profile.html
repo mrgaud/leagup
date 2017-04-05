@@ -4,8 +4,8 @@
         <div class="col-md-12 well ">
             <div class="row">
                 <div class="col-xs-4 col-md-3 img-rounded bg-white">
-                    <img ng-src="{{profile.image_url}}" ng-show='profile.image_url' class='img-responsive' style='max-height:200px;margin:auto' alt="">
-                    <img src="default-user-image.png" style='margin:auto' class='img-responsive max-heigt' ng-hide='profile.image_url' alt="">
+                    <img ng-src="{{profile.image_url}}" ng-show='profile.image_url' class='img-responsive' style='max-height:200px;margin:auto'>
+                    <img src="default-user-image.png" style='margin:auto' class='img-responsive max-heigt' ng-hide='profile.image_url'>
                     <h3 class='visible-sm visible-xs' style="text-align:center"> {{profile.username}}</h3>
                 </div>
                 <div class="col-xs-1 col-md-6">
@@ -29,11 +29,15 @@
                                     <li style="text-align:center;padding:.4em">
                                         {{team.team_name}}
                                         <button class="btn btn-sm btn-success" ng-click='acceptTeamInvite(team.invited,team.team)'><i class="fa fa-check accept"></i></button>
-                                        <button class="btn btn-sm btn-danger"><i class="fa fa-times decline"></i></button>
+                                        <button class="btn btn-sm btn-danger" ng-click='declineTeamInvite(team.invited,team.team)'><i class="fa fa-times decline"></i></button>
                                     </li>
                                     <li class="divider"></li>
                                 </div>
                             </ul>
+                            <br>
+                        </div>
+                        <div class="col-xs-12" ng-show='user.id == profile.id && user.pw_recovery === 0'>
+                            <a class='btn btn-warning btn-block' name="button">Set Up Password recovery</a>
                             <br>
                         </div>
                         <div class="col-xs-12" ng-show='user.id !== profile.id'>
@@ -122,7 +126,7 @@
                         <div class="panel panel-default panel-primary" ng-repeat='message in profile.messages'>
                             <div class="panel-heading"><a ui-sref='profile({username:message.poster_username})' ng-click='getProfile(message.poster_username)' class="messagesName">{{message.poster_username}}</a></cite>
                             </div>
-                            <div class="panel-body right">{{message.message}}</div>
+                            <div class="panel-body">{{message.message}}</div>
                             <div class="panel-footer messageCite text-muted">{{message.readableDate}}</div>
                         </div>
                     </div>

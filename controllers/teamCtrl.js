@@ -81,6 +81,10 @@ module.exports = {
         console.log('teamInvite function log');
         teamSrvc.teamInvite(req)
     },
+    kickFromTeam:function(req,res){
+        console.log('hitting me');
+        teamSrvc.kickFromTeam(req)
+    },
     acceptTeamInvite:function(req,res){
         teamSrvc.acceptTeamInvite(req)
     },

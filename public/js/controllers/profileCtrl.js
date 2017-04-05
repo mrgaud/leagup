@@ -1,5 +1,6 @@
 app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
 
+    $('[data-toggle="popover"]').popover()
     $scope.games = profileSrvc.games;
     //grabs profile based on page you are on and displays it
     $scope.getProfile = function() {
@@ -7,11 +8,12 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
         profileSrvc.getProfile(user).then(res => {
             $scope.profile = res.data
             $scope.profile.messages.map(x => x.readableDate = moment(x.date).format('MMM Do YYYY, hh:mm:ss a'))
+            $scope.profile.messages.map(x => x.readableDate = moment(x.date).format('MMM Do YYYY, hh:mm:ss a'))
             $scope.profile.messages.sort((x, y) => x.date < y.date)
             $scope.profile.games = JSON.parse($scope.profile.games)
             $scope.profile.likesId = $scope.profile.likes.map(x => x.poster_id)
             $scope.profile.dislikesId = $scope.profile.dislikes.map(x => x.poster_id)
-            $scope.profile.teamNames = $scope.profile.teams.map(x=>x.team_name)
+            $scope.profile.teamNames = $scope.profile.teams.map(x => x.team_name)
             profileSrvc.chart($scope.profile)
             console.log($scope.profile);
         }, err => console.log(err))
@@ -109,9 +111,12 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
             date: Date.now(),
             poster_image: $scope.user.image_url
         }
-        profileSrvc.createUserMessage(obj)
-        $scope.comment = ''
-        $scope.getProfile()
+        profileSrvc.createUserMessage(obj).then(res=>{
+            $scope.getProfile()
+            $scope.comment = ''
+        })
+        console.log("hit me baby");
+        // $scope.profile.messages.push(obj)
     }
     //##########################//##########################//##########################
     //##########################//##########################//##########################
@@ -130,14 +135,22 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
         }
         profileSrvc.teamInvite(obj)
     }
-
-    $scope.acceptTeamInvite = function(invited,team){
-        let obj ={invited:invited,team:team}
+    //##########################//##########################//##########################
+    //##########################//##########################//##########################
+    //##########################//##########################//##########################
+    $scope.acceptTeamInvite = function(invited, team) {
+        let obj = {
+            invited: invited,
+            team: team
+        }
         profileSrvc.acceptTeamInvite(obj)
         $scope.getProfile()
     }
-    $scope.declineTeamInvite = function(invited, team){
-        let obj = {invited:invited,team:team}
+    $scope.declineTeamInvite = function(invited, team) {
+        let obj = {
+            invited: invited,
+            team: team
+        }
         profileSrvc.decilineTeamInvite(obj)
         $scope.getProfile()
     }

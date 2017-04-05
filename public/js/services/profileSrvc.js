@@ -1,12 +1,12 @@
 app.service('profileSrvc', function($http) {
-    this.teamInvite = function(obj){
+    this.teamInvite = function(obj) {
         $http.post('team/teamInvite', obj)
     }
-    this.acceptTeamInvite = function(obj){
-        $http.post('team/acceptTeamInvite',obj)
+    this.acceptTeamInvite = function(obj) {
+        $http.post('team/acceptTeamInvite', obj)
     }
-    this.declineTeamInvite = function(obj){
-        $http.post('team/declineTeamInvite',obj)
+    this.decilineTeamInvite = function(obj) {
+        $http.post('team/declineTeamInvite', obj)
     }
     // ####################// ####################// ####################// ####################
     this.addLike = function(obj) {
@@ -31,12 +31,9 @@ app.service('profileSrvc', function($http) {
     // ####################// ####################// ####################// ####################
 
     this.createUserMessage = function(message) {
-        $http.post('/user/userMessages', message).then(res => {
-            console.log(res);
-        }, err => {
-            console.log(err);
-        })
+        return $http.post('/user/userMessages', message)
     }
+
     // ####################// ####################// ####################// ####################
     this.upload = function(id) {
         var files = document.getElementById(id).files;
@@ -151,7 +148,7 @@ app.service('profileSrvc', function($http) {
                         display: true,
                         position: 'left',
                         ticks: {
-                            stepSize:2,
+                            stepSize: 2,
                             beginAtZero: true
                         },
                         gridLines: {

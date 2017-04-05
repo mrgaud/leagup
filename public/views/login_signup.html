@@ -1,7 +1,7 @@
 <div class="container">
+
     <div class="row">
         <div class="col-xs-12">
-            <h3 class="bg-success createUserMessage" style="display:none;text-align:center;">Account successfully created. Go ahead and log in</h3>
         </div>
         <div class="col-md-6">
             <h1>Welcome To Leag-Up</h1>
@@ -30,7 +30,7 @@
                             <label for="exampleInputPassword1">Password</label>
                             <input type="password" class="form-control" id="loginPass" placeholder="Password" ng-model='loginPass'>
                         </div>
-                        <a ui-sref='pw_recover'>forgot passwor?</a>
+                        <a ui-sref='pw_recover'>forgot password?</a>
                         <br>
                         <button type="submit" class="btn btn-default btn-primary" ng-click='login(loginEmail,loginPass)'>login</button>
                     </form>
@@ -42,7 +42,10 @@
         <!-- row end -->
     </div>
     <div class="row">
-        <div class="col-sm-5 col-sm-offset-7  bg-default pull-right">
+        <div class="col-md-7">
+            <img src="assets/bracket-inverse.png" class='hidden-sm hidden-xs' alt="">
+        </div>
+        <div class="col-md-5 col-sm-12 bg-default pull-right">
             <div class="panel panel-primary">
                 <div class="panel-heading ">
                     <h2>Create Profile</h2>
@@ -50,7 +53,7 @@
                 <div class="panel-body">
                     <form>
                         <div class="form-group">
-                            <p>{{err}}</p>
+                            <p class='err alert alert-danger' style="display:none">{{err}}</p>
                             <label for="username">Username</label>
                             <input type="text" class="form-control" id="username" placeholder="BadChumpDallin" ng-model='username'>
                         </div>

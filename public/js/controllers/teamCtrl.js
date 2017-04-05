@@ -2,6 +2,9 @@ app.controller('teamCtrl', function($scope, $state, $stateParams, teamSrvc, prof
     $state.current.name === 'createTeam' && !$scope.user ? $location.path('login_signup') : ''
     $state.current.name === 'edit_team' && !$scope.user ? $location.path('login_signup') : ''
     $scope.games = profileSrvc.games
+    $(function() {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
     $scope.options = [{
         label: "only I can invite",
         value: 2
@@ -18,20 +21,26 @@ app.controller('teamCtrl', function($scope, $state, $stateParams, teamSrvc, prof
     //###########################//###########################//###########################
     //###########################//###########################//###########################
     if ($state.current.name === "team") {
-        teamSrvc.getTeam().then(res => {
-            res.data.messages.sort((x, y) => x.date < y.date)
-            res.data.messages = res.data.messages.map(x => {
-                x.date = moment(x.date).format('MMM Do YYYY, h:mm:ss a')
-                return x
+        function getTeam(){
+            teamSrvc.getTeam().then(res => {
+                res.data.messages.sort((x, y) => x.date < y.date)
+                res.data.messages = res.data.messages.map(x => {
+                    x.date = moment(x.date).format('MMM Do YYYY, h:mm:ss a')
+                    return x
+                })
+                $scope.team = res.data
+                $scope.team.likesId = $scope.team.likes.map(x => x.id)
+                $scope.team.dislikesId = $scope.team.dislikes.map(x => x.user_id)
+                if ($scope.team.team_games) {
+                    $scope.team.games = JSON.parse($scope.team.team_games)
+                }
+                teamSrvc.teamChart($scope.team)
+                console.log($scope.team);
+            }, err => {
+                console.log(err);
             })
-            $scope.team = res.data
-            $scope.team.likesId = $scope.team.likes.map(x => x.id)
-            $scope.team.dislikesId = $scope.team.dislikes.map(x => x.user_id)
-            teamSrvc.teamChart($scope.team)
-            console.log($scope.team);
-        }, err => {
-            console.log(err);
-        })
+        }
+        getTeam()
     }
     //###########################//###########################//###########################
     //###########################//###########################//###########################
@@ -71,6 +80,7 @@ app.controller('teamCtrl', function($scope, $state, $stateParams, teamSrvc, prof
         }
         teamSrvc.createTeam(obj)
         $location.path('/user/' + $scope.user.username)
+        location.reload()
     }
     //###########################//###########################//###########################
     //###########################//###########################//###########################
@@ -78,10 +88,21 @@ app.controller('teamCtrl', function($scope, $state, $stateParams, teamSrvc, prof
     $scope.joinTeam = function() {
         teamSrvc.joinTeam($scope.user.id, $scope.team.team_id)
         location.reload()
+        // getTeam()
     }
     $scope.leaveTeam = function() {
         teamSrvc.leaveTeam($scope.user.id, $scope.team.team_id)
         location.reload()
+        // getTeam()
+    }
+    $scope.kickFromTeam = function(user_id, team_id){
+        let obj = {
+            user_id:user_id,
+            team_id:team_id
+        }
+        console.log(obj);
+        teamSrvc.kickFromTeam(obj)
+        getTeam()
     }
     //###########################//###########################//###########################
     //###########################//###########################//###########################
@@ -116,19 +137,7 @@ app.controller('teamCtrl', function($scope, $state, $stateParams, teamSrvc, prof
             }
         })
         teamSrvc.addLike(obj)
-        teamSrvc.getTeam().then(res => {
-            res.data.messages.sort((x, y) => x.date < y.date)
-            res.data.messages = res.data.messages.map(x => {
-                x.date = moment(x.date).format('MMM Do YYYY, h:mm:ss a')
-                return x
-            })
-            $scope.team = res.data
-            $scope.team.likesId = $scope.team.likes.map(x => x.id)
-            $scope.team.dislikesId = $scope.team.dislikes.map(x => x.user_id)
-            teamSrvc.teamChart($scope.team)
-        }, err => {
-            console.log(err);
-        })
+        getTeam()
     }
 
     $scope.addDislike = function() {
@@ -143,19 +152,7 @@ app.controller('teamCtrl', function($scope, $state, $stateParams, teamSrvc, prof
             }
         })
         teamSrvc.addDislike(obj)
-        teamSrvc.getTeam().then(res => {
-            res.data.messages.sort((x, y) => x.date < y.date)
-            res.data.messages = res.data.messages.map(x => {
-                x.date = moment(x.date).format('MMM Do YYYY, h:mm:ss a')
-                return x
-            })
-            $scope.team = res.data
-            $scope.team.likesId = $scope.team.likes.map(x => x.id)
-            $scope.team.dislikesId = $scope.team.dislikes.map(x => x.user_id)
-            teamSrvc.teamChart($scope.team)
-        }, err => {
-            console.log(err);
-        })
+        getTeam()
     }
     // ####################// ####################// ####################// ####################
     // ####################// ####################// ####################// ####################
@@ -194,8 +191,8 @@ app.controller('teamCtrl', function($scope, $state, $stateParams, teamSrvc, prof
             image = null;
         }
         let obj = {
-            user_id:$scope.user.id,
-            team_id:$stateParams.team,
+            user_id: $scope.user.id,
+            team_id: $stateParams.team,
             team_description: desc || null,
             team_photo: image,
             privacy: priv.value,

@@ -1,7 +1,7 @@
 <div class="container">
     <!-- NOTE: header and join/leave button -->
     <div class="row ">
-        <div class="col-xs-12 well well-sm">
+        <div class="col-xs-12 well">
             <div class="row">
                 <div class="col-sm-3 col-xs-6">
                     <img ng-src="{{team.team_photo}}" style='max-height:230px' alt="" ng-show='team.team_photo' class="img-responsive">
@@ -13,24 +13,25 @@
                     </h1>
                     <h4>{{team.team_description}}</h4>
                 </div>
-                <div class="col-sm-2 col-sm-offset-2">
+                <div class="col-sm-2 col-xs-6 col-sm-offset-2">
                     <a class="btn btn-primary btn-block" ng-hide='user.teamNames.includes(team.team_name) || team.privacy !== 0' ng-click='joinTeam()'>join</a>
                     <a class="btn btn-danger btn-block" ng-show='user.teamNames.includes(team.team_name)' ng-click='leaveTeam()'>leave</a>
-                    <a ui-sref='edit_team({admin:team.team_admin,team:team.team_id})' ng-show='user.id === team.team_admin' class='btn btn-info btn-block' >Edit Team</a>
+                    <a ui-sref='edit_team({admin:team.team_admin,team:team.team_id})' ng-show='user.id === team.team_admin' class='btn btn-info btn-block'>Edit Team</a>
                 </div>
             </div>
         </div>
+    </div>
 
     <!-- ########################################## -->
     <!-- ########################################## -->
     <!-- ########################################## -->
     <div class="row">
-        <div class="col-md-3 well">
-            <div class="col-sm-6" ng-show='user'>
-                <button type="button" class="btn btn-block btn-success"name="button" ng-click='addLike()' ng-disabled='team.likesId.includes(user.id)'>like</button>
+        <div class="col-md-3 col-xs-12 well">
+            <div class="col-xs-6" ng-show='user'>
+                <button type="button" class="btn btn-block btn-success" name="button" ng-click='addLike()' ng-disabled='team.likesId.includes(user.id)'>like</button>
             </div>
-            <div class="col-sm-6"ng-show='user'>
-                <button type="button" class="btn btn-block btn-danger"name="button" ng-click='addDislike()' ng-disabled='team.dislikesId.includes(user.id)'>dislike</button>
+            <div class="col-xs-6" ng-show='user'>
+                <button type="button" class="btn btn-block btn-danger" name="button" ng-click='addDislike()' ng-disabled='team.dislikesId.includes(user.id)'>dislike</button>
                 <br>
             </div>
             <table class='table table-striped'>
@@ -46,8 +47,12 @@
                     <th>members</td>
                         <td>{{team.members.length || 0}}</td>
                 </tr>
-
             </table>
+            <div class="col-xs-12">
+                <div class="col-md-4 col-lg-3 col-xs-2" ng-repeat='game in team.games'>
+                    <img ng-src="{{game.image}}" alt="" class="img-responsive">
+                </div>
+            </div>
         </div>
         <!-- ########################################## -->
         <!-- ########################################## -->
@@ -61,7 +66,13 @@
         <div class="col-md-3 well clearfix">
             <h3>Members</h3>
             <div ng-repeat='member in team.members'>
-                <a ui-sref="profile({username:member.username})"><h4>{{member.username}}<span ng-show='member.user_id===team.team_admin'> (admin)</span></h4></a>
+                <h4>
+                    <a ui-sref="profile({username:member.username})">{{member.username}}</a>
+                    <span ng-show='member.user_id===team.team_admin'> (admin)</span>
+                    <button ng-show='team.team_admin != member.id && user.id==team.team_admin' class="btn btn-danger btn-xs" ng-click='kickFromTeam(member.id, team.team_id)'>
+                        <i class="fa fa-times" data-toggle='tooltip' data-placement='top' title='delete' ng-show='team.team_admin != member.id && user.id==team.team_admin'></i>
+                    </button>
+                </h4>
             </div>
         </div>
     </div>

@@ -12,8 +12,8 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-xs-4">
-                                    <img ng-src="{{poser.image_url}}" class='searchIcon img-responsive' ng-show='poser.image_url' alt="">
-                                    <img src="default-user-image.png" class='searchIcon img-responsive' ng-show='!poser.image_url' alt="">
+                                    <img ng-src="{{poser.image_url}}"  class='searchIcon img-responsive' ng-show='poser.image_url'>
+                                    <img src="default-user-image.png" class='searchIcon img-responsive' ng-show='!poser.image_url'>
                                 </div>
                                 <div class="col-xs-12 col-sm-4">
                                     <h4>{{poser.username.length>13?poser.username.slice(0,13)+'...':poser.username}}</h4>
@@ -22,7 +22,7 @@
                                 <div class="col-md-4 col-xs-12">
                                     <div class="row">
                                         <div class="col-md-6 col-xs-2 col-lg-4" class="img-responsive" ng-repeat='game in poser.games'>
-                                            <img ng-src="{{game.image}}" class='img-responsive' alt="">
+                                            <img ng-src="{{game.image}}" class='img-responsive'>
                                         </div>
                                     </div>
                                 </div>
@@ -36,17 +36,29 @@
         <div class="col-sm-6" ng-show='results.teams.length>0'>
             <h2>Teams</h2>
             <div ng-repeat='team in results.teams | filter:sortText'>
-                <div class="media">
-                    <div class="media-left">
-                        <img class="media-object" ng-src='{{team.team_photo}}' style="max-width:64px;max-height:64px;" ng-show='team.team_photo'></i>
-                        <img src="default-user-image.png" class='media-object' style="max-width:64px;max-height:64px;" ng-show='!team.team_photo' alt="">
+                <a ui-sref='team({id:team.team_id})'>
+                    <div class="panel panel-default darken">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <img ng-src="{{team.team_photo}}" class='searchIcon img-responsive' ng-show='team.team_photo'>
+                                    <img ng-src="https://assets.donordrive.com/clients/teamkidney/img/avatar-team-default.gif" ng-show='!team.team_photo' class='searchIcon img-responsive' ng-show='team.team_photo'>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <h4>{{team.team_name.length>13?team.team_name.slice(0,13)+'...':team.team_name}}</h4>
+                                    <p>{{team.team_description}}</p>
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-xs-2 col-lg-4" class="img-responsive" ng-repeat='game in team.team_games'>
+                                            <img ng-src="{{game.image}}" class='img-responsive'>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="media-body">
-                        <a ui-sref='team({id:team.team_id})'><h4 class="media-heading">{{team.team_name}}</h4></a>
-                        <p>{{team.team_description}}</p>
-                    </div>
-                </div>
-                <br>
+                </a>
             </div>
         </div>
     </div>

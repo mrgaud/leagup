@@ -19,6 +19,9 @@ app.service('teamSrvc', function($http, $state) {
         }
         return $http.post('/team/leaveTeam', obj)
     }
+    this.kickFromTeam = function(obj){
+        $http.post('team/kickFromTeam', obj)
+    }
 
     this.edit_team = function(obj){
         return $http.patch('/team/edit_team',obj)
@@ -96,7 +99,7 @@ app.service('teamSrvc', function($http, $state) {
                             stepSize: 2,
                             beginAtZero: true
                         },
-                        stacked: true
+                        stacked: false
                     }],
                     xAxes: [{
                         type: 'time',

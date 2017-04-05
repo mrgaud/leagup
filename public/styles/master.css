@@ -1,4 +1,17 @@
-
+/*.leagUpIcon{
+    max-height: 30px;
+    max-width: 50px;
+    display: inline;
+    margin: auto;
+}*/
+.navbar-brand{
+    padding: 0px;
+}
+.navbar-brand>img{
+    height: 100%;
+    padding: 5px;
+    width: auto;
+}
 .messageCite{
     font-size: .8em;
 }
@@ -29,6 +42,7 @@
 }
 .searchIcon{
     max-height: 120px;
+    margin: auto;
 }
 .darken:hover{
     opacity: .7;

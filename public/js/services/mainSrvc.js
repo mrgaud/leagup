@@ -11,19 +11,7 @@ app.service('mainSrvc', function($http) {
     this.getUser = function(){
         return $http.get('/user/currentUser')
     }
-    // this.getProfile = function(user){
-    //     return $http.get('/user/getProfile/'+user)
-    // }
     this.logout = function(){
         $http.get('/user/logout')
     }
-    // this.createUserMessage = function(message){
-    //     $http.post('/user/userMessages',message).then(res=>{
-    //         console.log(res);
-    //     },err=>{
-    //         console.log(err);
-    //     })
-    // }
-
-
 })
