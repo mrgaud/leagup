@@ -1,4 +1,4 @@
-app.controller('teamCtrl', function($scope, $state, $stateParams, teamSrvc, profileSrvc, $location) {
+app.controller('teamCtrl', ['$scope',"$state",'$stateParams',"teamSrvc","profileSrvc",'$location',function($scope, $state, $stateParams, teamSrvc, profileSrvc, $location) {
     $state.current.name === 'createTeam' && !$scope.user ? $location.path('login_signup') : ''
     $state.current.name === 'edit_team' && !$scope.user ? $location.path('login_signup') : ''
     $scope.games = profileSrvc.games
@@ -21,7 +21,7 @@ app.controller('teamCtrl', function($scope, $state, $stateParams, teamSrvc, prof
     //###########################//###########################//###########################
     //###########################//###########################//###########################
     if ($state.current.name === "team") {
-        function getTeam(){
+        var getTeam=function(){
             teamSrvc.getTeam().then(res => {
                 res.data.messages.sort((x, y) => x.date < y.date)
                 res.data.messages = res.data.messages.map(x => {
@@ -136,8 +136,8 @@ app.controller('teamCtrl', function($scope, $state, $stateParams, teamSrvc, prof
                 teamSrvc.removeDislike(obj)
             }
         })
-        teamSrvc.addLike(obj)
-        getTeam()
+        teamSrvc.addLike(obj).then(res=>getTeam())
+
     }
 
     $scope.addDislike = function() {
@@ -151,8 +151,7 @@ app.controller('teamCtrl', function($scope, $state, $stateParams, teamSrvc, prof
                 teamSrvc.removeLike(obj)
             }
         })
-        teamSrvc.addDislike(obj)
-        getTeam()
+        teamSrvc.addDislike(obj).then(res=>getTeam())
     }
     // ####################// ####################// ####################// ####################
     // ####################// ####################// ####################// ####################
@@ -201,4 +200,4 @@ app.controller('teamCtrl', function($scope, $state, $stateParams, teamSrvc, prof
         teamSrvc.edit_team(obj)
         $location.path(`team/${$stateParams.team}`)
     }
-})
+}])

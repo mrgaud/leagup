@@ -4,7 +4,15 @@ const logout = require('express-passport-logout');
 
 const router = express.Router();
 
+router.post("/submitNewPassword", usersCtrl.submitNewPassword)
+
+router.post('/checkAnswers', usersCtrl.checkAnswers)
+
 router.post('/addLike', usersCtrl.addLike)
+
+router.post('/getPwRecovery', usersCtrl.getPwRecovery)
+
+router.post('/addPasswordRecovery', usersCtrl.addPasswordRecovery)
 
 router.post('/addDislike', usersCtrl.addDislike)
 

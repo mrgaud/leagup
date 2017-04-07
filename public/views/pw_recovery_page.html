@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row panel panel-default">
+        <div class="col-xs-8 col-xs-offset-2 panel-body">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" name="email" ng-model='email' class="form-control" placeholder="example@example.com">
+                <br>
+                <button type="button" class='btn btn-primary' name="button" ng-click='getPwRecovery(email)'>submit</button>
+            </div>
+        </div>
+    </div>
+    <div ng-hide='!recover[0].q_one'>
+        <div class="row">
+            <div class="col-xs-12 well">
+                <h3>{{recover[0].q_one}}</h3>
+                <label for="">answer</label>
+                <input type="text" name="" class='form-control' ng-model='question_a' value="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 well">
+                <h3>{{recover[0].q_two}}</h3>
+                <label for="">answer</label>
+                <input type="text" name=""class='form-control' ng-model='question_b' value="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 well">
+                <h3>{{recover[0].q_three}}</h3>
+                <label for="">answer</label>
+                <input type="text" name="" class='form-control' ng-model='question_c' value="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-xs-offset-3">
+                <button class="btn btn-block btn-warning" ng-click='checkAnswers(recover[0].id,question_a,question_b,question_c)'>reset password</button>
+            </div>
+        </div>
+    </div>
+    <div ng-show='pwchanger'>
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2 well">
+                <label for="">new password</label>
+                <input type="password" class='form-control' name="" value="" ng-model='newPassword'>
+                <label for="">re-enter password</label>
+                <input type="password" class='form-control' name="" value="" ng-model='newPasswordCopy'>
+                <br>
+
+                <button type="button" class='btn btn-success' name="button" ng-click='submitNewPassword(newPassword,newPasswordCopy)'>Submit new password</button>
+            </div>
+        </div>
+    </div>
+</div>

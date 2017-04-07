@@ -1,4 +1,4 @@
-app.service('teamSrvc', function($http, $state) {
+app.service('teamSrvc', ['$http','$state',function($http, $state) {
     this.createTeam = function(obj) {
         $http.post('/team/createTeam', obj)
     }
@@ -60,7 +60,7 @@ app.service('teamSrvc', function($http, $state) {
     this.teamChart = function(team) {
         function getData(liDi) {
             let likes = team[liDi].map(f => moment(f.date).format('YYYYMMDD'))
-            counts = {}
+            let counts = {}
             likes.forEach(i => counts[i] = (counts[i] || 0) + 1)
             likes = []
             for (var o in counts) {
@@ -71,8 +71,8 @@ app.service('teamSrvc', function($http, $state) {
             }
             return likes
         }
-        likes = getData('likes')
-        dislikes = getData('dislikes')
+        let likes = getData('likes')
+        let dislikes = getData('dislikes')
 
         let ctx = $('#teamChart')
         let teamChart = new Chart(ctx, {
@@ -112,4 +112,4 @@ app.service('teamSrvc', function($http, $state) {
             }
         })
     }
-})
+}])

@@ -1,4 +1,4 @@
-app.controller('mainCtrl', function($scope, $state, mainSrvc, profileSrvc, $location) {
+app.controller('mainCtrl', ['$scope', '$state','mainSrvc','profileSrvc','$location', function($scope, $state, mainSrvc, profileSrvc, $location) {
     //checks email and pw and logs in user
     // ####################// ####################// ####################// ####################
     // ####################// ####################// ####################// ####################
@@ -76,4 +76,4 @@ app.controller('mainCtrl', function($scope, $state, mainSrvc, profileSrvc, $loca
         err ? '' : console.log('no err')
     })
     // ####################// ####################// ####################// ####################
-})
+}])

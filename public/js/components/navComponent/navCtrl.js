@@ -1,4 +1,4 @@
-app.controller('navCtrl', function($scope, navSrvc, $location, $state, $stateParams) {
+app.controller('navCtrl', ['$scope','navSrvc', '$location','$state', '$stateParams', function($scope, navSrvc, $location, $state, $stateParams) {
     $scope.results = null
     $scope.goTo = function(path) {
         $location.path('/search/' + path)
@@ -14,4 +14,4 @@ app.controller('navCtrl', function($scope, navSrvc, $location, $state, $statePar
     }, err => console.log(err))
 
     $scope.test = 'hello world'
-})
+}])
