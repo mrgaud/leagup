@@ -1,6 +1,6 @@
 const app = angular.module('leagup', ['ui.router'])
 // import {fish} from 'js/scripts.js'
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/login_signup')
 
     $stateProvider
@@ -43,4 +43,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl:'views/pw_recovery_setup.html',
             controller:'profileCtrl'
         })
-})
+        .state('pw_recovery',{
+            url:'/'+Math.floor(Math.random()*100000),
+            templateUrl:'views/pw_recovery_page.html',
+            controller:'profileCtrl'
+        })
+}])

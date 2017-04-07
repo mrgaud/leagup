@@ -1,4 +1,18 @@
-app.service('profileSrvc', function($http) {
+app.service('profileSrvc',['$http', function($http) {
+
+    this.addPasswordRecovery = function(obj){
+        return $http.post('/user/addPasswordRecovery', obj)
+    }
+    this.getPwRecovery = function(email){
+        return $http.post('/user/getPwRecovery',{email})
+    }
+    this.checkAnswers = function(obj){
+        return $http.post('/user/checkAnswers',obj)
+    }
+    this.submitNewPassword = function(pass, id){
+        return $http.post('/user/submitNewPassword', {pass, id})
+    }
+
     this.teamInvite = function(obj) {
         $http.post('team/teamInvite', obj)
     }
@@ -173,7 +187,7 @@ app.service('profileSrvc', function($http) {
         })
     }
     // ####################// ####################// ####################// ####################
-})
+}])
 
 
 

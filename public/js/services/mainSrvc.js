@@ -1,4 +1,4 @@
-app.service('mainSrvc', function($http) {
+app.service('mainSrvc', ['$http',function($http) {
     this.login = function(credentials) {
         return $http.post('/login', credentials)
     }
@@ -14,4 +14,4 @@ app.service('mainSrvc', function($http) {
     this.logout = function(){
         $http.get('/user/logout')
     }
-})
+}])

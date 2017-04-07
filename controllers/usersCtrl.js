@@ -1,6 +1,7 @@
 const db = require('../db');
-const bcrypt = require('bcryptjs');
 const userSrvc = require('../service/userSrvc.js');
+
+const bcrypt = require('bcryptjs');
 
 function hash(given) {
     const salt = bcrypt.genSaltSync(10);
@@ -19,7 +20,6 @@ module.exports = {
         ]
         db.createUser(userInfo, function(err, users) {
             if (err) {
-                
                 return next(err)
             }
             const data = users[0];
@@ -38,7 +38,9 @@ module.exports = {
         });
     },
     getUser: function(req, res) {
-        delete req.user.password
+        if (req.user) {
+            delete req.user.password
+        }
         res.send(req.user)
     },
     getUserMessages: function(req, res) {
@@ -56,7 +58,7 @@ module.exports = {
         db.getProfileByUsername([req.params.username], function(err, profile) {
             profile = profile[0]
             delete profile.password
-            if(!profile) return
+            if (!profile) return
             db.getUserMessages([profile.id], function(err, message) {
                 profile.messages = message;
                 db.getUserLikes([profile.id], function(err, likes) {
@@ -65,7 +67,7 @@ module.exports = {
                         profile.dislikes = dislikes
                         db.getUserTeams([profile.id], function(err, teams) {
                             profile.teams = teams
-                            db.getUsersTeamRequests([profile.id],(err,requests)=>{
+                            db.getUsersTeamRequests([profile.id], (err, requests) => {
                                 profile.teamRequests = requests
                                 console.log(err);
                                 res.send(profile)
@@ -80,7 +82,7 @@ module.exports = {
     editProfile: function(req, res) {
         req.body.games = JSON.stringify(req.body.games);
         db.editProfile([req.user.id, req.body.description, req.body.games, req.body.image], function(err, profile) {
-            console.log(err,'################',profile);
+            console.log(err, '################', profile);
         })
     },
     addLike: function(req, res) {
@@ -92,7 +94,43 @@ module.exports = {
     removeLike: function(req, res) {
         res.send(userSrvc.removeLike(req))
     },
-    removeDislike: function(req,res){
+    removeDislike: function(req, res) {
         res.send(userSrvc.removeDislike(req))
+    },
+    addPasswordRecovery: function(req, res) {
+        res.send(userSrvc.addPasswordRecovery(req))
+    },
+    getPwRecovery: function(req, res) {
+        db.run(`select id,q_one,q_two,q_three from clients
+            join pw_recovery
+            on pw_recovery.user_id = clients.id
+            where lower(email) = lower('${req.body.email}')`, (err, qna) => {
+            var item;
+            if (err) {
+                console.log(err);
+                return
+            }
+            res.send(qna)
+        })
+    },
+    checkAnswers: function(req, res) {
+        console.log(req.body);
+        db.run(`select * from pw_recovery
+            where user_id = '${req.body.id}' and a_one = '${req.body.a1}' and a_two = '${req.body.a2}' and a_three = '${req.body.a3}'
+            `, (err, recovery) => {
+            console.log(err, recovery);
+            if (err) {
+                return res.status(403).send(err)
+            }
+            res.status(201).send(recovery)
+        })
+    },
+    submitNewPassword: function(req, res) {
+        req.body.pass = hash(req.body.pass)
+        db.run(`update clients
+            set password = '${req.body.pass}'
+            where id = ${req.body.id}`, (err, res) => {
+            console.log(err, res);
+        })
     }
 }

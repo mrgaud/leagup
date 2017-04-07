@@ -30,5 +30,19 @@ module.exports = {
             console.log(err)
             return res
         })
+    },
+    addPasswordRecovery: function(req) {
+        db.run(`insert into pw_recovery(user_id, q_one, q_two, q_three, a_one, a_two, a_three)
+        values('${req.body.user}', '${req.body.q1}', '${req.body.q2}', '${req.body.q3}', '${req.body.a1}', '${req.body.a2}', '${req.body.a3}')
+        `, (err, res) => {
+            if (err) {
+                console.log(typeof req.body.q1);
+                console.log(err);
+                return
+            }
+            db.run(`update clients
+                set pw_recovery = 1
+                where id=${req.body.user}`)
+        })
     }
 }

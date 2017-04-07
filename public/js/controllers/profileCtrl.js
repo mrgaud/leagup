@@ -1,4 +1,4 @@
-app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
+app.controller('profileCtrl', ['$scope','profileSrvc','$location','$state',function($scope, profileSrvc, $location, $state) {
 
     $('[data-toggle="popover"]').popover()
     $scope.games = profileSrvc.games;
@@ -18,6 +18,26 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
             console.log($scope.profile);
         }, err => console.log(err))
     }
+    $scope.checkAnswers = function(id,a1,a2,a3){
+        let obj = {id:id,a1:a1,a2:a2,a3:a3}
+        profileSrvc.checkAnswers(obj).then(res=>{
+            $scope.id = $scope.recover
+            $scope.recover = undefined
+            if(res.data[0].user_id){
+                $scope.pwchanger = true;
+            }
+        })
+    }
+
+    $scope.submitNewPassword = function(pass,passCheck){
+        if(pass===passCheck){
+            profileSrvc.submitNewPassword(pass, $scope.id[0].id)
+            $location.path('login_signup')
+        }else{
+            $scope.err = 'Passwords don\'t match'
+        }
+
+    }
     //##########################//##########################//##########################
     //##########################//##########################//##########################
     //##########################//##########################//##########################
@@ -30,6 +50,7 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
     //##########################//##########################//##########################
     $scope.editProfile = function(description, url) {
         let checked = []
+        let image;
         $('input[type=checkbox]:checked').each(function(index, checkbox) {
             checked.push($(checkbox).attr('id'));
         });
@@ -156,4 +177,20 @@ app.controller('profileCtrl', function($scope, profileSrvc, $location, $state) {
         profileSrvc.decilineTeamInvite(obj)
         $scope.getProfile()
     }
-})
+    //##########################//##########################//##########################
+    //##########################//##########################//##########################
+    //##########################//##########################//##########################
+    $scope.addPasswordRecovery = function(q1,a1,q2,a2,q3,a3){
+        let obj={q1,a1,q2,a2,q3,a3,user:$scope.user.id}
+        profileSrvc.addPasswordRecovery(obj).then(res=>{
+            $location.path('/user/'+$scope.user.username)
+            location.reload()
+        })
+    }
+    $scope.getPwRecovery = function(email){
+        profileSrvc.getPwRecovery(email).then(res=>{
+            $scope.recover = res.data
+            console.log(res.data);
+        })
+    }
+}])
