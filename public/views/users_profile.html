@@ -11,7 +11,7 @@
                     <h1 class=''>{{profile.username}}</h1>
                     <h5 class="">{{profile.description}}</h5>
                     <br>
-                    <div class="col-sm-3 col-xs-3" ng-repeat='game in profile.games track by $index'>
+                    <div class="col-sm-2 col-xs-3" ng-repeat='game in profile.games track by $index'>
                         <img class='gamesIcon img-responsive text-center' ng-src="{{game.image}}" alt="{{game.name}}">
                     </div>
 
@@ -25,11 +25,11 @@
                                 </div>
                                 <div class="panel-body">
                                     <label for="">email</label>
-                                    <input type="email" class='form-control' name="" value="">
+                                    <input type="email" class='form-control' name="" value="" ng-model='email'>
                                     <label for="">password</label>
-                                    <input type="password" class='form-control' name="" value="">
+                                    <input type="password" class='form-control' name="" value="" ng-model='password'>
                                     <br>
-                                    <button type="button" class="btn btn-primary" name="button">login</button>
+                                    <button type="button" class="btn btn-primary" name="button" ng-click='login(email,password)'>login</button>
                                 </div>
                             </div>
                         </div>

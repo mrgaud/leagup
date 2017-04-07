@@ -12,6 +12,6 @@ app.service('mainSrvc', ['$http',function($http) {
         return $http.get('/user/currentUser')
     }
     this.logout = function(){
-        $http.get('/user/logout')
+        $http.get('/user/logout').then(res=>{console.log(res)},err=>'logged out')
     }
 }])

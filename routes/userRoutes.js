@@ -32,6 +32,9 @@ router.post('/userMessages', usersCtrl.createUserMessage)
 
 router.get('/userMessages', usersCtrl.getUserMessages)
 
-router.get('/logout', logout())
+router.get('/logout', function(req,res){
+    logout()
+    req.session.destroy()
+})
 
 module.exports=router

@@ -30,7 +30,6 @@ app.controller('mainCtrl', ['$scope', '$state','mainSrvc','profileSrvc','$locati
     }
     //deletes user from angular record
     $scope.logout = function() {
-        console.log('logging out');
         $scope.user = undefined
         mainSrvc.logout()
     }
