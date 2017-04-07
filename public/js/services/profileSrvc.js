@@ -37,7 +37,7 @@ app.service('profileSrvc',['$http', function($http) {
     }
     // ####################// ####################// ####################// ####################
     this.editProfile = function(obj) {
-        $http.patch('/user/edit_profile', obj)
+        return $http.patch('/user/edit_profile', obj)
     }
     this.getProfile = function(user) {
         return $http.get('/user/getProfile/' + user)

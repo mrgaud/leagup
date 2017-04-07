@@ -80,7 +80,6 @@ app.controller('teamCtrl', ['$scope',"$state",'$stateParams',"teamSrvc","profile
         }
         teamSrvc.createTeam(obj)
         $location.path('/user/' + $scope.user.username)
-        location.reload()
     }
     //###########################//###########################//###########################
     //###########################//###########################//###########################

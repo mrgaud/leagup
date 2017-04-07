@@ -57,6 +57,7 @@ app.controller('profileCtrl', ['$scope','profileSrvc','$location','$state',funct
         checked = checked.map(x => {
             for (let i = 0; i < $scope.games.length; i++) {
                 if ($scope.games[i].name === x) {
+                    console.log($scope.games[i]);
                     return x = $scope.games[i]
                 }
             }
@@ -72,9 +73,9 @@ app.controller('profileCtrl', ['$scope','profileSrvc','$location','$state',funct
         let obj = {
             image: image || $scope.user.image_url,
             description: description || $scope.user.description,
-            games: checked.length ? checked : $scope.user.games
+            games: checked
         }
-        profileSrvc.editProfile(obj)
+        profileSrvc.editProfile(obj).then(res=>{console.log(res)},err=>console.log(err))
         $location.path('/user/' + $scope.user.username)
         location.reload()
     }

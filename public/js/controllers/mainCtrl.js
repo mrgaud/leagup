@@ -30,6 +30,7 @@ app.controller('mainCtrl', ['$scope', '$state','mainSrvc','profileSrvc','$locati
     }
     //deletes user from angular record
     $scope.logout = function() {
+        console.log('logging out');
         $scope.user = undefined
         mainSrvc.logout()
     }
@@ -69,7 +70,9 @@ app.controller('mainCtrl', ['$scope', '$state','mainSrvc','profileSrvc','$locati
     mainSrvc.getUser().then((res) => {
         if (res.data.username) {
             console.log(res.data);
-            res.data.gameNames = res.data.games.map(x => x.name)
+            if(res.data.games){
+                res.data.gameNames = res.data.games.map(x => x.name)
+            }
             $scope.user = res.data
         }
     }, (err) => {
